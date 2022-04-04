@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { pink } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import { GiTicket } from 'react-icons/gi';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -14,12 +13,14 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { SidebarUserOverview } from 'features/sidebar/SidebarUserOverview';
 import { Capitalize } from 'components/Capitalize';
 
-const Item = styled(MenuItem)`
+const Item = styled(MenuItem)(
+    ({ theme }) => `
     border-radius: 5px;
     &:hover {
-        background: ${pink[500]};
+        background: ${theme.palette.secondary.dark};
     }
-`;
+`
+);
 
 type Props = {
     toggled: boolean;

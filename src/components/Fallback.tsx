@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 
-import { BounceLoader } from 'components/BounceLoader';
+import logo from 'assets/logo.png';
+import { siteTitle } from 'config';
 
 const Container = styled('div')`
     display: flex;
@@ -8,11 +9,11 @@ const Container = styled('div')`
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background-color: #40373e;
+    background-color: #555;
 `;
 
 export const Fallback = (): JSX.Element => (
     <Container>
-        <BounceLoader />
+        <img src={logo} alt={siteTitle} width="220px" />
     </Container>
 );

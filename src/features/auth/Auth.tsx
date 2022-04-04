@@ -20,7 +20,7 @@ export const Auth = (): JSX.Element => {
     if (loggingIn) {
         return (
             <Stack spacing={2} alignItems="center">
-                <TypographyIntl variant="body2" color="primary.light" textId="loggingIn" />
+                <TypographyIntl variant="body2" color="primary.main" textId="loggingIn" />
                 <Spinner />
             </Stack>
         );

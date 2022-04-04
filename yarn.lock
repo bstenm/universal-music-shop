@@ -2994,6 +2994,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/shopify-buy@^2.10.10":
+  version "2.10.10"
+  resolved "https://registry.yarnpkg.com/@types/shopify-buy/-/shopify-buy-2.10.10.tgz#69d6d4a64bdeef469d81ba7a761ebf67ec7510a5"
+  integrity sha512-KNX9ToXmH67+w2K+snlPbanM/dnmVxBKll7H1+UgPMJTDWxFzWttoNaiueSsiUEmNwu3NoFuGXdwew1bTLY4TQ==
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -11984,6 +11989,11 @@ shiki@^0.10.1:
     jsonc-parser "^3.0.0"
     vscode-oniguruma "^1.6.1"
     vscode-textmate "5.2.0"
+
+shopify-buy@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/shopify-buy/-/shopify-buy-2.14.0.tgz#b4a35cb7e83518f44476ff3e3b5530cf86a24ddb"
+  integrity sha512-ehQMBQzkmm837boIUb85umpWg25EYzgDTqSv1dLabTmfTQSlhTkBJ0r1mDZnZpEoYpWbAs6cSSa5C9/NIaSSOQ==
 
 side-channel@^1.0.4:
   version "1.0.4"

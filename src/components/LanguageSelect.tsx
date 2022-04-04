@@ -24,10 +24,10 @@ const Button = styled('button')(
   padding-bottom: 8px;
   text-align: left;
   background: ${theme.palette.primary.light};
-  color: ${theme.palette.secondary.light};
+  color: ${theme.palette.primary.main};
   &:hover {
     padding-bottom: 7px;
-    border-bottom: 1px solid ${theme.palette.secondary.light};
+    border-bottom: 1px solid ${theme.palette.primary.main};
   }
   &.${selectUnstyledClasses.expanded} {
     &::after {

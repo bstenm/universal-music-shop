@@ -10,6 +10,6 @@ export const BounceLoader = ({ size, color }: Props): JSX.Element => {
     const theme = useTheme();
 
     return (
-        <LibBounceLoader color={color ?? theme.palette.secondary.main} loading size={size ?? 60} />
+        <LibBounceLoader color={color ?? theme.palette.secondary.dark} loading size={size ?? 60} />
     );
 };
