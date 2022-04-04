@@ -1,10 +1,11 @@
 export interface IMarketItem {
-    id: string;
-    price: number;
+    id: string | number;
+    title: string;
+    price: string;
     image: string;
     description: string;
-    availability: number;
+    available: boolean;
 }
-export interface IPurchasedItem extends Omit<IMarketItem, 'availability'> {
+export interface IPurchasedItem extends Omit<IMarketItem, 'available'> {
     quantity: number;
 }

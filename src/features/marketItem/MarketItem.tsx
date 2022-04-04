@@ -62,10 +62,10 @@ export const MarketItem = (): JSX.Element => {
         return <EmptyResponse message="itemNotFound" />;
     }
 
-    const { image, price, availability } = item;
+    const { image, price } = item;
 
     // TODO: change hardcoded tier value
-    const totalPrice = price * quantity;
+    const totalPrice = parseInt(price, 10) * quantity;
 
     return (
         <Card>
@@ -74,7 +74,7 @@ export const MarketItem = (): JSX.Element => {
                     <img src={image} alt="T-shirt" />
                 </div>
                 <Booking>
-                    <ItemQuantity range={availability} onSelect={onSelectQuantity} />
+                    <ItemQuantity range={10} onSelect={onSelectQuantity} />
                     <TotalPrice data={totalPrice} />
                     <Space height="20px" />
                     {totalPrice && totalPrice > 0 && (

@@ -23,7 +23,7 @@ export const EmptyResponse = ({ message, fullscreen }: Props): JSX.Element => {
 
     return (
         <Centered fullscreen={fullscreen}>
-            <Typography variant="h5" color={theme.palette.secondary.light}>
+            <Typography variant="h5" color={theme.palette.secondary.dark}>
                 <Icon /> {t(message ?? 'noItemsFound')}
             </Typography>
         </Centered>

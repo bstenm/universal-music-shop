@@ -94,10 +94,4 @@ export class DatabaseService {
         log.debug('Successfully retrieved market item:', data);
         return data;
     }
-
-    /* == HELPER  FUNCTIONS == */
-
-    public static updateMarketItemAvailability(id: string, availability: number): Promise<void> {
-        return DatabaseService.updateMarketItem(id, { availability });
-    }
 }

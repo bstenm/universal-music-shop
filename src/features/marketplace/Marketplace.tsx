@@ -9,14 +9,14 @@ import { IMarketItem } from 'config/types';
 export const Marketplace = (): JSX.Element => {
     const history = useHistory();
 
-    const [items, fetching] = useFetchAllMarketItems();
+    const [items] = useFetchAllMarketItems();
 
-    const onSelect = (itemId: string): void => {
+    const onSelect = (itemId: string | number): void => {
         history.push(`/market-item/${itemId}`);
     };
 
     return (
-        <FetchingScreen fetching={fetching} empty={!items || !items.length}>
+        <FetchingScreen fetching={!items} empty={!items.length}>
             <Grid sx={{ marginTop: '30px' }} container spacing={4}>
                 {items.map((item: IMarketItem) => (
                     <Grid key={item.id} item xs={6} md={4} xl={3}>

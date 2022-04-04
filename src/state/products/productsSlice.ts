@@ -1,28 +1,23 @@
+import Client, { Product } from 'shopify-buy';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { IMarketItem } from 'config/types';
 
 const initialState: IMarketItem[] = [];
 
-const productsAPI = {
-    fetchAll: async () => {
-        const response = await fetch(
-            'https://programming-9190.myshopify.com/admin/api/2022-04/products.json',
-            {
-                method: 'GET',
-                headers: {
-                    'X-Shopify-Access-Token': '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'
-                }
-            }
-        );
-        return response.json();
-    }
+const productToMarketItem = (product: Product): IMarketItem => {
+    const { title, description, images, id, variants } = product;
+    const image: string = images[0].src;
+    const { price, available } = variants[0];
+    return { title, description, id, image, price, available };
 };
 
 export const fetchAllProducts = createAsyncThunk('products/fetchAllProductsStatus', async () => {
-    const response = await productsAPI.fetchAll();
-    console.log('ALL PRODUCTS', response);
-    return response;
+    const client = Client.buildClient({
+        domain: 'programming-9190.myshopify.com',
+        storefrontAccessToken: '8090124e9b9b8f3c14952e237a49de38'
+    });
+    const products: Product[] = await client.product.fetchAll();
+    return products.map(productToMarketItem);
 });
 
 export const productsSlice = createSlice({
@@ -31,14 +26,9 @@ export const productsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            state.push(action.payload);
+            state.concat(action.payload);
         });
     }
 });
 
 export const productsReducer = productsSlice.reducer;
-
-// console.log(
-//     '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
-//     process.env.REACT_APP_SHOPIFY_ACCESS_TOKEN
-// );
