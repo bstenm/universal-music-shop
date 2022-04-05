@@ -51,7 +51,7 @@ export const Asset = ({ data, onSelect }: Props): JSX.Element => {
                 <CardMedia
                     sx={{ objectPosition: 'center top' }}
                     alt="T-shirt"
-                    height="180"
+                    height="220"
                     image={data.image}
                     component="img"
                     onError={() => setBrokenImage(true)}
