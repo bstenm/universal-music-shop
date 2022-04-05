@@ -75,7 +75,7 @@ export const MarketItem = (): JSX.Element => {
                     <Typography variant="body1" color="primary">
                         {item.title}
                     </Typography>
-                    <Space height="20px" />
+                    <Space height="10px" />
                     <Chip label={t('order').toUpperCase()} />
                     <Space height="5px" />
                     <ItemQuantity range={10} onSelect={setQuantity} />

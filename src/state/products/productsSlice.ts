@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
-import Client, { Product } from 'shopify-buy';
+import { Product } from 'shopify-buy';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { IMarketItem } from 'config/types';
+import { shopifyClient } from 'libs/shopifyClient';
 import { IProductsState } from 'state/products//interface';
-import { shopifyDomain, shopifyStorefrontAccessToken } from 'config/constants';
 
 const initialState = {
     items: [],
@@ -19,11 +19,7 @@ const productToMarketItem = (product: Product): IMarketItem => {
 };
 
 export const fetchAllProducts = createAsyncThunk('products/fetchAllProductsStatus', async () => {
-    const client = Client.buildClient({
-        domain: shopifyDomain,
-        storefrontAccessToken: shopifyStorefrontAccessToken
-    });
-    const products: Product[] = await client.product.fetchAll();
+    const products: Product[] = await shopifyClient.product.fetchAll();
     return products.map(productToMarketItem);
 });
 

@@ -7,13 +7,11 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import { StrictMode, Suspense } from 'react';
 import { BrowserTracing } from '@sentry/tracing';
-import { getAnalytics } from 'firebase/analytics';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
 import { ConnectedRouter } from 'connected-react-router';
 
 import { App } from 'components/App';
 import { Fallback } from 'components/Fallback';
-import { firebaseApp } from 'libs/firebaseApp';
 import { store, history } from 'app/store';
 import * as serviceWorkerRegistration from 'serviceWorkerRegistration';
 import reportWebVitals from 'reportWebVitals';
@@ -30,9 +28,6 @@ Sentry.init({
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0
 });
-
-// Firebase analytics
-getAnalytics(firebaseApp);
 
 const theme: ThemeOptions = {
     palette: {
