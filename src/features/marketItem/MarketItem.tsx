@@ -53,10 +53,8 @@ export const MarketItem = (): JSX.Element => {
     const item: IMarketItem = useAppSelector((state) => getProductData(state, itemId));
 
     const onAddToCart = (): void => {
-        shopifyClient.checkout.create().then((checkout) => {
-            // Do something with the checkout
-            console.log('CHECKOUT >>>>>> ', checkout);
-        });
+        const checkout = shopifyClient.checkout.create();
+        console.log('CHECKOUT >>>>>> ', checkout);
         dispatch(cartActions.addItemToCart(item));
     };
 
