@@ -46,7 +46,7 @@ const theme: ThemeOptions = {
             dark: '#0b83a8',
             light: '#7bbbd1',
             main: '#2AB3E2',
-            contrastText: '#000'
+            contrastText: '#FFF'
         }
     }
 };

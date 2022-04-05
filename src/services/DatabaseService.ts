@@ -11,9 +11,8 @@ import {
 } from 'firebase/firestore';
 
 import { log } from 'libs/logger';
-import { User } from 'state/user/userSlice';
 import { database } from 'libs/firebaseApp';
-import { IMarketItem, IPurchasedItem } from 'config/types';
+import { IMarketItem, IPurchasedItem, User } from 'config/types';
 import { getDocSnapshotData, getQuerySnapshotData, setRecord } from 'libs/firestoreUtils';
 
 const userCollection = 'users';

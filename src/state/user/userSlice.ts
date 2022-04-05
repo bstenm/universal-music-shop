@@ -1,18 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IPurchasedItem } from 'config/types';
-
-export type User = {
-    id: string;
-    email: string;
-    name?: string;
-    avatar?: string;
-    lastName?: string;
-    createdAt?: number;
-    firstName?: string;
-    assets?: IPurchasedItem[];
-};
-
 const initialState = {};
 
 export const userSlice = createSlice({

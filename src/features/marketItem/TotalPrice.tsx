@@ -1,20 +1,27 @@
+import { styled } from '@mui/material/styles';
 import { currency } from 'config';
 import { DataRow } from 'features/marketItem/DataRow';
-import { RowLabel } from 'features/marketItem/RowLabel';
+import { Capitalize } from 'components/Capitalize';
 import { MissingData } from 'components/MissingData';
 
 type Props = {
     data?: number;
 };
 
+const Value = styled('div')(
+    ({ theme }) => `
+    color: ${theme.palette.secondary.dark};
+`
+);
+
 export const TotalPrice = ({ data }: Props): JSX.Element => (
     <DataRow>
-        <RowLabel name="totalPrice" />:{' '}
+        <Capitalize message="totalPrice" />:{' '}
         {data ? (
-            <div>
+            <Value>
                 {currency}
                 {data}
-            </div>
+            </Value>
         ) : (
             <MissingData message="missingPrice" />
         )}

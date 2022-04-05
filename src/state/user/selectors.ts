@@ -1,4 +1,4 @@
-import { User } from 'state/user/userSlice';
+import { User } from 'config/types';
 import { RootState } from 'app/store';
 
 export const getUserId = (state: RootState): string => state.user.id;

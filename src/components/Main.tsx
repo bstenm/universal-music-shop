@@ -1,9 +1,11 @@
+import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import { AuthPage } from 'pages/AuthPage';
+import { CartButton } from 'features/cartButton/CartButton';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { UserAssetsPage } from 'pages/UserAssetsPage';
 import { LanguageSelect } from 'components/LanguageSelect';
@@ -35,7 +37,7 @@ const SidebarButtons = styled('div')(({ theme }) => ({
     }
 }));
 
-const FloatRight = styled('div')(({ theme }) => ({
+const FloatRight = styled(Stack)(({ theme }) => ({
     marginLeft: 'auto',
     [theme.breakpoints.down('md')]: {
         marginLeft: 15
@@ -59,7 +61,8 @@ export const Main = ({
                 <SidebarButtons>
                     <ToggleSidebarButton toggle={handleToggleSidebar} />
                     <CollapseSidebarButton collapsed={collapsed} onToggle={handleCollapsedChange} />
-                    <FloatRight>
+                    <FloatRight direction="row" spacing={2}>
+                        <CartButton onClick={() => null} />
                         <LanguageSelect />
                     </FloatRight>
                 </SidebarButtons>

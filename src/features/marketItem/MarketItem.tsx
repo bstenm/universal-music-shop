@@ -1,92 +1,90 @@
+import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiCard from '@mui/material/Card';
 import { useParams } from 'react-router-dom';
 import MuiCardContent from '@mui/material/CardContent';
-import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Chip, Typography } from '@mui/material';
 
 import { Space } from 'components/Space';
-import { DEV_MODE } from 'config/constants';
+import { Button } from 'components/Button';
+import { IMarketItem } from 'config/types';
 import { EmptyResponse } from 'components/EmptyResponse';
-import { CenteredLoader } from 'components/CenteredLoader';
-import { useFetchMarketItem } from 'hooks/useFetchMarketItem';
-import { useItemPurchase } from 'hooks/useItemPurchase';
 import { TotalPrice } from 'features/marketItem/TotalPrice';
 import { ItemQuantity } from 'features/marketItem/ItemQuantity';
-import { PaypalButtons } from 'features/paypalButtons/PaypalButtons';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { getProductData } from 'state/products/selectors';
+import { cartActions } from 'state/cart/cartSlice';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     color: 'white',
     margin: 'auto',
     padding: theme.spacing(2),
     maxWidth: '91ch',
-    borderRadius: '5px',
-    backgroundColor: theme.palette.primary.main
+    borderRadius: '0px'
 }));
 
 const CardContent = styled(MuiCardContent)`
+    gap: 50px;
     display: flex;
 `;
 
-const Booking = styled('div')`
+const RightPanel = styled('div')`
+    gap: 10px;
     width: 100%;
     display: flex;
-    padding-left: 30px;
+    align-items: center;
+    padding: 0 30px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 `;
 
 export const MarketItem = (): JSX.Element => {
-    const quantityRef = useRef<number>(1);
+    const { t } = useTranslation();
+
+    const dispatch = useAppDispatch();
 
     const { itemId } = useParams<{ itemId: string }>();
 
     const [quantity, setQuantity] = useState<number>(1);
 
-    const [processItemPurchase] = useItemPurchase();
+    const item: IMarketItem = useAppSelector((state) => getProductData(state, itemId));
 
-    const [item, loading] = useFetchMarketItem(itemId);
-
-    // We need that to keep track of the quantity selected by the user
-    // because we are using it in a callback passed to a child component
-    quantityRef.current = quantity;
-
-    const onSelectQuantity = (value: number): void => {
-        setQuantity(value);
+    const onAddToCart = (): void => {
+        dispatch(cartActions.addItemToCart(item));
     };
-
-    if (loading) {
-        return <CenteredLoader fullscreen />;
-    }
 
     if (!item) {
         return <EmptyResponse message="itemNotFound" />;
     }
 
-    const { image, price } = item;
-
-    // TODO: change hardcoded tier value
-    const totalPrice = parseInt(price, 10) * quantity;
+    const totalPrice = parseInt(item.price, 10) * quantity;
 
     return (
         <Card>
             <CardContent>
                 <div>
-                    <img src={image} alt="T-shirt" />
+                    <img src={item.image} width="400px" alt="T-shirt" />
                 </div>
-                <Booking>
-                    <ItemQuantity range={10} onSelect={onSelectQuantity} />
-                    <TotalPrice data={totalPrice} />
+                <RightPanel>
+                    <Typography variant="h6" color="primary">
+                        {item.description}
+                    </Typography>
+                    <Space height="5px" />
+                    <Typography variant="body1" color="primary">
+                        {item.title}
+                    </Typography>
                     <Space height="20px" />
+                    <Chip label={t('order').toUpperCase()} />
+                    <Space height="5px" />
+                    <ItemQuantity range={10} onSelect={setQuantity} />
+                    <TotalPrice data={totalPrice} />
+                    <Space height="5px" />
                     {totalPrice && totalPrice > 0 && (
-                        <PaypalButtons
-                            // TODO: replace hard-coded total price
-                            amount={DEV_MODE ? 1 : totalPrice}
-                            onPaymentCompleted={() =>
-                                processItemPurchase({ ...item, quantity: quantityRef.current })
-                            }
-                        />
+                        <Button variant="outlined" textId="addToCart" onClick={onAddToCart} />
                     )}
-                </Booking>
+                </RightPanel>
             </CardContent>
         </Card>
     );

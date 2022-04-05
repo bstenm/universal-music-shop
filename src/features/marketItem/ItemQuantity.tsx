@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { DataRow } from 'features/marketItem/DataRow';
-import { RowLabel } from 'features/marketItem/RowLabel';
+import { Capitalize } from 'components/Capitalize';
 import { CustomSelect } from 'features/marketItem/CustomSelect';
 
-const FullyBooked = styled('i')`
+const OutOfStock = styled('i')`
     color: ${yellow[400]};
 `;
 
@@ -20,11 +20,11 @@ export const ItemQuantity = ({ range, onSelect }: Props): JSX.Element => {
 
     return (
         <DataRow>
-            <RowLabel name="quantity" />:
+            <Capitalize message="quantity" />:
             {range && range > 0 ? (
                 <CustomSelect type="quantity" max={range} onSelect={onSelect} />
             ) : (
-                <FullyBooked>{t('fullyBooked')}</FullyBooked>
+                <OutOfStock>{t('outOfStock')}</OutOfStock>
             )}
         </DataRow>
     );

@@ -1,16 +1,8 @@
 import range from 'lodash/range';
-import { styled } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import FormControl from '@mui/material/FormControl';
-import MuiSelect, { SelectChangeEvent } from '@mui/material/Select';
-
-const Select = styled(MuiSelect)`
-    color: #fff;
-    & .MuiSelect-icon {
-        color: #fff;
-    }
-`;
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 type Props = {
     max: number;

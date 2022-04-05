@@ -1,8 +1,15 @@
+/* eslint-disable no-param-reassign */
 import Client, { Product } from 'shopify-buy';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IMarketItem } from 'config/types';
 
-const initialState: IMarketItem[] = [];
+import { IMarketItem } from 'config/types';
+import { IProductsState } from 'state/products//interface';
+import { shopifyDomain, shopifyStorefrontAccessToken } from 'config/constants';
+
+const initialState = {
+    items: [],
+    status: 'idle'
+} as IProductsState;
 
 const productToMarketItem = (product: Product): IMarketItem => {
     const { title, description, images, id, variants } = product;
@@ -13,8 +20,8 @@ const productToMarketItem = (product: Product): IMarketItem => {
 
 export const fetchAllProducts = createAsyncThunk('products/fetchAllProductsStatus', async () => {
     const client = Client.buildClient({
-        domain: 'programming-9190.myshopify.com',
-        storefrontAccessToken: '8090124e9b9b8f3c14952e237a49de38'
+        domain: shopifyDomain,
+        storefrontAccessToken: shopifyStorefrontAccessToken
     });
     const products: Product[] = await client.product.fetchAll();
     return products.map(productToMarketItem);
@@ -26,7 +33,12 @@ export const productsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            state.concat(action.payload);
+            // Add product list to state
+            state.status = 'succeeded';
+            state.items = action.payload;
+        });
+        builder.addCase(fetchAllProducts.pending, (state) => {
+            state.status = 'pending';
         });
     }
 });

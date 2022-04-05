@@ -1,4 +1,5 @@
 import Stack from '@mui/material/Stack';
+import { grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import { ReactNode } from 'react';
 
@@ -8,6 +9,7 @@ type Props = {
 
 const Container = styled(Stack)`
     height: 50px;
+    color: ${grey[800]};
 `;
 
 export const DataRow = ({ children }: Props): JSX.Element => {

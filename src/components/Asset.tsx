@@ -8,12 +8,19 @@ import MuiCard from '@mui/material/Card';
 import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
 
 import { IMarketItem } from 'config/types';
-import { Button } from 'components/Button';
+import { Button as CustomButton } from 'components/Button';
 
-const Card = styled(MuiCard)`
+const Card = styled(MuiCard)(
+    ({ theme }) => `
     max-width: 265px;
     min-width: 200px;
-    border-radius: 10px;
+    border-radius: 0px;
+    background-color: ${theme.palette.primary.light};
+`
+);
+
+const Button = styled(CustomButton)`
+    margin: auto;
 `;
 
 const BrokenImagePlaceholder = styled('div')({
@@ -35,7 +42,7 @@ export const Asset = ({ data, onSelect }: Props): JSX.Element => {
     const [brokenImage, setBrokenImage] = useState<boolean>(false);
 
     return (
-        <Card>
+        <Card elevation={0}>
             {brokenImage ? (
                 <BrokenImagePlaceholder>
                     <BrokenImageOutlinedIcon fontSize="large" />
@@ -44,19 +51,19 @@ export const Asset = ({ data, onSelect }: Props): JSX.Element => {
                 <CardMedia
                     sx={{ objectPosition: 'center top' }}
                     alt="T-shirt"
-                    height="140"
+                    height="180"
                     image={data.image}
                     component="img"
                     onError={() => setBrokenImage(true)}
                 />
             )}
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    T-shirt
+                <Typography gutterBottom variant="body1" align="center">
+                    {data.title}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button onClick={onSelect} textId="viewDetails" />
+                <Button variant="outlined" onClick={onSelect} textId="viewDetails" />
             </CardActions>
         </Card>
     );

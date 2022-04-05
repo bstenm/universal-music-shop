@@ -55,5 +55,8 @@
     "transactionCancelled": "The transaction has been cancelled",
     "myTickets": "My tickets",
     "somethingWentWrong": "Something went wrong",
-    "go": "Go"
+    "go": "Go",
+    "cart": "Cart",
+    "addToCart": "Add to cart",
+    "order": "Order"
 }

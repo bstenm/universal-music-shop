@@ -1,22 +1,32 @@
 import { Grid } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { Asset } from 'components/Asset';
-import { FetchingScreen } from 'components/FetchingScreen';
-import { useFetchAllMarketItems } from 'hooks/useFetchAllMarketItems';
 import { IMarketItem } from 'config/types';
+import { fetchProducts } from 'state/products/selectors';
+import { FetchingScreen } from 'components/FetchingScreen';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { fetchAllProducts } from 'state/products/productsSlice';
 
 export const Marketplace = (): JSX.Element => {
     const history = useHistory();
 
-    const [items] = useFetchAllMarketItems();
+    const dispatch = useAppDispatch();
+
+    const { items, status } = useAppSelector(fetchProducts);
 
     const onSelect = (itemId: string | number): void => {
         history.push(`/market-item/${itemId}`);
     };
 
+    useEffect(() => {
+        dispatch(fetchAllProducts());
+    }, [dispatch]);
+
     return (
-        <FetchingScreen fetching={!items} empty={!items.length}>
+        <FetchingScreen fetching={status === 'pending'} empty={!items.length}>
             <Grid sx={{ marginTop: '30px' }} container spacing={4}>
                 {items.map((item: IMarketItem) => (
                     <Grid key={item.id} item xs={6} md={4} xl={3}>

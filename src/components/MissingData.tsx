@@ -10,7 +10,7 @@ export const MissingData = ({ message }: Props): JSX.Element => {
     const { t } = useTranslation();
 
     return (
-        <Typography variant="body2" color={grey[400]}>
+        <Typography variant="body2" color={grey[600]}>
             <i> {t(message)}</i>
         </Typography>
     );
