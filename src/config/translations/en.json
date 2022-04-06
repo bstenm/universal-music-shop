@@ -58,5 +58,6 @@
     "go": "Go",
     "cart": "Cart",
     "addToCart": "Add to cart",
+    "add": "Add",
     "order": "Order"
 }

@@ -20,8 +20,8 @@ export const CustomSelect = ({ type, max, onSelect }: Props): JSX.Element => {
     };
 
     return (
-        <FormControl>
-            <Select id={`${type}-select`} size="small" value={val} onChange={handleChange}>
+        <FormControl size="small">
+            <Select id={`${type}-select`} value={val} onChange={handleChange}>
                 {range(1, max + 1).map((e) => (
                     <MenuItem key={e} value={e}>
                         {e}

@@ -62,7 +62,7 @@ export const Main = ({
                     <ToggleSidebarButton toggle={handleToggleSidebar} />
                     <CollapseSidebarButton collapsed={collapsed} onToggle={handleCollapsedChange} />
                     <FloatRight direction="row" spacing={2}>
-                        <CartButton onClick={() => null} />
+                        <CartButton />
                         <LanguageSelect />
                     </FloatRight>
                 </SidebarButtons>

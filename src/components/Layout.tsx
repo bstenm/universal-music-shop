@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 
 import { Main } from 'components/Main';
 import { Aside } from 'features/sidebar/Aside';
+import { ShoppingCartDrawer } from 'features/shoppingCartDrawer/ShoppingCartDrawer';
 
 const Container = styled('div')`
     height: 100%;
@@ -34,6 +35,7 @@ export const Layout = (): JSX.Element => {
                 handleToggleSidebar={handleToggleSidebar}
                 handleCollapsedChange={handleCollapsedChange}
             />
+            <ShoppingCartDrawer />
         </Container>
     );
 };

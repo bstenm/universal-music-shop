@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { DataRow } from 'features/marketItem/DataRow';
 import { Capitalize } from 'components/Capitalize';
-import { CustomSelect } from 'features/marketItem/CustomSelect';
+import { CustomSelect } from 'components/CustomSelect';
 
 const OutOfStock = styled('i')`
     color: ${yellow[400]};

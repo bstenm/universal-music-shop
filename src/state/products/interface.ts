@@ -1,4 +1,4 @@
-import { IMarketItem } from 'config/types';
+import { IMarketItem } from 'interfaces';
 
 export interface IProductsState {
     items: IMarketItem[];

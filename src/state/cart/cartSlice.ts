@@ -1,15 +1,38 @@
+/* eslint-disable no-param-reassign */
+import { nanoid } from 'nanoid';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IMarketItem } from 'config/types';
+import { ICartItem } from 'interfaces';
 
-const initialState: IMarketItem[] = [];
+interface ICartState {
+    open: boolean;
+    items: ICartItem[];
+}
+
+const initialState: ICartState = { items: [], open: false };
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addItemToCart: (state, action) => {
-            state.push(action.payload);
+        toggle: (state) => {
+            state.open = !state.open;
+        },
+        addItem: (state, action) => {
+            const { item, quantity } = action.payload;
+            state.items.push({ ...item, quantity, cartId: nanoid() });
+        },
+        incrementItemQuantity: (state, action) => {
+            const itemId = action.payload;
+            const index = state.items.findIndex((item: ICartItem) => item.cartId === itemId);
+            state.items[index].quantity += 1;
+        },
+        decrementItemQuantity: (state, action) => {
+            const itemId = action.payload;
+            const index = state.items.findIndex((item: ICartItem) => item.cartId === itemId);
+            if (state.items[index].quantity > 0) {
+                state.items[index].quantity -= 1;
+            }
         }
     }
 });

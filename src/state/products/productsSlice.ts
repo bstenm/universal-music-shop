@@ -2,7 +2,7 @@
 import { Product } from 'shopify-buy';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { IMarketItem } from 'config/types';
+import { IMarketItem } from 'interfaces';
 import { shopifyClient } from 'libs/shopifyClient';
 import { IProductsState } from 'state/products//interface';
 
@@ -35,6 +35,9 @@ export const productsSlice = createSlice({
         });
         builder.addCase(fetchAllProducts.pending, (state) => {
             state.status = 'pending';
+        });
+        builder.addCase(fetchAllProducts.rejected, (state, action) => {
+            console.log(action.error.message);
         });
     }
 });

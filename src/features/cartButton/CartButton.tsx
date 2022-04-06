@@ -7,22 +7,16 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import { getNbOfItemInCart } from 'state/cart/selectors';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 
-type Props = {
-    onClick: () => void;
-};
-
-export const CartButton = ({ onClick }: Props): JSX.Element => {
+export const CartButton = (): JSX.Element => {
     const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
 
     const nbOfItems = useAppSelector(getNbOfItemInCart);
 
-    // const onClickIt = () => {
-    //     dispatch(cartActions.addItemToCart({
-    //         id: '123',
-    //     }));
-    // };
+    const onClick = (): void => {
+        dispatch(cartActions.toggle());
+    };
 
     return (
         <IconButton onClick={onClick} aria-label="cart" title={t('cart')}>

@@ -1,5 +1,10 @@
 import * as locales from '@mui/material/locale';
-import { createTheme, ThemeProvider, ThemeOptions } from '@mui/material/styles';
+import {
+    createTheme,
+    ThemeOptions,
+    ThemeProvider,
+    responsiveFontSizes
+} from '@mui/material/styles';
 
 import { Layout } from 'components/Layout';
 import { useAlert } from 'hooks/useAlert';
@@ -25,7 +30,7 @@ export const App = ({ theme }: Props): JSX.Element => {
     const alert: AlertProps = useAppSelector((state: RootState) => state.alert);
 
     // TODO: get locale from i18next
-    const themeWithLocale = createTheme(theme, locales.enUS);
+    const themeWithLocale = responsiveFontSizes(createTheme(theme, locales.enUS));
 
     return (
         <LangContext.Provider value={[lang, i18n.changeLanguage]}>

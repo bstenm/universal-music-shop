@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import MuiCard from '@mui/material/Card';
 import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
 
-import { IMarketItem } from 'config/types';
+import { IMarketItem } from 'interfaces';
 import { Button as CustomButton } from 'components/Button';
 
 const Card = styled(MuiCard)(

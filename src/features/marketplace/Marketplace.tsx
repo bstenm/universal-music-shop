@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { Asset } from 'components/Asset';
-import { IMarketItem } from 'config/types';
-import { fetchProducts } from 'state/products/selectors';
+import { IMarketItem } from 'interfaces';
+import { getProducts } from 'state/products/selectors';
 import { FetchingScreen } from 'components/FetchingScreen';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -15,7 +15,7 @@ export const Marketplace = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
 
-    const { items, status } = useAppSelector(fetchProducts);
+    const { items, status } = useAppSelector(getProducts);
 
     const onSelect = (itemId: string | number): void => {
         history.push(`/market-item/${itemId}`);

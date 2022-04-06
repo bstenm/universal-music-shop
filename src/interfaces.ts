@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
     id: string;
     email: string;
     name?: string;
@@ -6,8 +6,9 @@ export interface User {
     lastName?: string;
     createdAt?: number;
     firstName?: string;
-    assets?: IPurchasedItem[];
+    assets?: ICartItem[];
 }
+
 export interface IMarketItem {
     id: string | number;
     title: string;
@@ -16,6 +17,8 @@ export interface IMarketItem {
     description: string;
     available: boolean;
 }
-export interface IPurchasedItem extends Omit<IMarketItem, 'available'> {
+
+export interface ICartItem extends Omit<IMarketItem, 'available'> {
+    cartId: string;
     quantity: number;
 }
