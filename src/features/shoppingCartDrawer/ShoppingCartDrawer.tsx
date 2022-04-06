@@ -1,31 +1,38 @@
-import Drawer from '@mui/material/Drawer';
-import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import { useHistory } from 'react-router-dom';
+import { ImCreditCard } from 'react-icons/im';
 
 import { CartItem } from 'features/shoppingCartDrawer/CartItem';
-import { ICartItem } from 'interfaces';
+import { ICartItem, IMarketItem } from 'interfaces';
+import { TypographyIntl } from 'components/TypographyIntl';
+import { Button as ButtonIntl } from 'components/Button';
 import { cartActions as cart } from 'state/cart/cartSlice';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { cartIsOpen, getItemsInCart } from 'state/cart/selectors';
+import { getProducts } from 'state/products/selectors';
+import { getItemsInCart } from 'state/cart/selectors';
 import { FeaturedProduct } from 'features/shoppingCartDrawer/FeaturedProduct';
-import { Button } from 'components/Button';
 
 const Container = styled(Stack)`
-    width: 450px;
     padding: 30px;
 `;
 
+const ShopNowButton = styled(ButtonIntl)(({ theme }) => ({
+    color: '#FFF',
+    backgroundColor: theme.palette.secondary.main,
+    '&: hover': {
+        backgroundColor: theme.palette.primary.main
+    }
+}));
+
 export const ShoppingCartDrawer = (): JSX.Element => {
+    const history = useHistory();
+
     const items = useAppSelector(getItemsInCart);
 
-    const isOpen = useAppSelector(cartIsOpen);
-
     const dispatch = useAppDispatch();
-
-    const toggleDrawer = (): void => {
-        dispatch(cart.toggle());
-    };
 
     const incrementItemQuantity = (itemId: string | number): void => {
         dispatch(cart.incrementItemQuantity(itemId));
@@ -36,22 +43,63 @@ export const ShoppingCartDrawer = (): JSX.Element => {
         dispatch(cart.decrementItemQuantity(itemId));
     };
 
-    return (
-        <Drawer anchor="right" open={isOpen} onClose={() => toggleDrawer()}>
+    const removeItem = (itemId: string | number): void => {
+        dispatch(cart.removeItem(itemId));
+    };
+
+    const onCheckout = (): void => {
+        dispatch(cart.empty());
+        dispatch(cart.toggle());
+        history.push('/marketplace');
+    };
+
+    const onShopNow = (): void => {
+        dispatch(cart.toggle());
+        history.push('/marketplace');
+    };
+
+    const totalPrice = items.reduce((acc: number, { price, quantity }: ICartItem) => {
+        // eslint-disable-next-line no-param-reassign
+        acc += parseInt(price, 10) * quantity;
+        return acc;
+    }, 0);
+
+    /** Just for the demo  */
+    const marketplace = useAppSelector(getProducts);
+    const featureProduct = marketplace.items.find((item: IMarketItem) =>
+        item.title.includes('white')
+    );
+
+    if (!items || !items.length) {
+        return (
             <Container spacing={5}>
-                <Stack spacing={1}>
-                    {items.map((item: ICartItem) => (
-                        <CartItem
-                            key={item.cartId}
-                            data={item}
-                            incrementQuantity={incrementItemQuantity}
-                            decrementQuantity={decrementItemQuantity}
-                        />
-                    ))}
-                </Stack>
-                {items[0] && <FeaturedProduct productId={items[0].id} />}
-                <Button textId="checkout" color="secondary" variant="contained" />
+                <TypographyIntl variant="h5" color="primary" textId="cartEmpty" />
+                <ShopNowButton textId="shopNow" onClick={onShopNow} />
             </Container>
-        </Drawer>
+        );
+    }
+
+    return (
+        <Container spacing={5}>
+            <Stack spacing={1}>
+                {items.map((item: ICartItem) => (
+                    <CartItem
+                        key={item.cartId}
+                        data={item}
+                        remove={() => removeItem(item.id)}
+                        incrementQuantity={incrementItemQuantity}
+                        decrementQuantity={decrementItemQuantity}
+                    />
+                ))}
+            </Stack>
+            {featureProduct && <FeaturedProduct productId={featureProduct.id} />}
+            <Button
+                sx={(theme) => ({ backgroundColor: theme.palette.secondary.dark })}
+                variant="contained"
+                onClick={onCheckout}
+                endIcon={<ImCreditCard />}>
+                {`$${totalPrice}`}&nbsp;
+            </Button>
+        </Container>
     );
 };

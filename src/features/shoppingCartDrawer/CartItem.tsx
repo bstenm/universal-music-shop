@@ -2,12 +2,13 @@ import grey from '@mui/material/colors/grey';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlineMinusCircle, AiOutlinePlusCircle, AiTwotoneDelete } from 'react-icons/ai';
 
 import { ICartItem } from 'interfaces';
 
 type Props = {
     data: ICartItem;
+    remove: () => void;
     incrementQuantity: (cartId: string | number) => void;
     decrementQuantity: (cartId: string | number, quantity: number) => void;
 };
@@ -18,8 +19,14 @@ const Row = styled(Stack)(
 `
 );
 
-export const CartItem = ({ data, incrementQuantity, decrementQuantity }: Props): JSX.Element => {
+export const CartItem = ({
+    data,
+    remove,
+    incrementQuantity,
+    decrementQuantity
+}: Props): JSX.Element => {
     const { cartId, title, image, quantity, description } = data;
+
     return (
         <Row direction="row" alignItems="center" spacing={4} key={cartId}>
             <Stack direction="row" alignItems="center" spacing={2}>
@@ -42,6 +49,7 @@ export const CartItem = ({ data, incrementQuantity, decrementQuantity }: Props):
                     color={grey[600]}
                     onClick={() => incrementQuantity(cartId)}
                 />
+                <AiTwotoneDelete onClick={remove} />
             </Stack>
         </Row>
     );

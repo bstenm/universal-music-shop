@@ -28,11 +28,14 @@ export const Marketplace = (): JSX.Element => {
     return (
         <FetchingScreen fetching={status === 'pending'} empty={!items.length}>
             <Grid sx={{ marginTop: '30px' }} container spacing={4}>
-                {items.map((item: IMarketItem) => (
-                    <Grid key={item.id} item xs={6} md={4} xl={3}>
-                        <Asset data={item} onSelect={() => onSelect(item.id)} />
-                    </Grid>
-                ))}
+                {items
+                    // Let's not display the white T-shirt as we'll use it as the featured item in the cart for demo
+                    .filter((item: IMarketItem) => !item.title.includes('white'))
+                    .map((item: IMarketItem) => (
+                        <Grid key={item.id} item xs={6} md={4} xl={3}>
+                            <Asset data={item} onSelect={() => onSelect(item.id)} />
+                        </Grid>
+                    ))}
             </Grid>
         </FetchingScreen>
     );

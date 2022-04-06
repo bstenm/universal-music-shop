@@ -18,9 +18,17 @@ export const cartSlice = createSlice({
         toggle: (state) => {
             state.open = !state.open;
         },
+        empty: (state) => {
+            state.items = [];
+        },
         addItem: (state, action) => {
             const { item, quantity } = action.payload;
             state.items.push({ ...item, quantity, cartId: nanoid() });
+        },
+        removeItem: (state, action) => {
+            const itemId = action.payload;
+            const index = state.items.findIndex((item: ICartItem) => item.cartId === itemId);
+            state.items.splice(index, 1);
         },
         incrementItemQuantity: (state, action) => {
             const itemId = action.payload;

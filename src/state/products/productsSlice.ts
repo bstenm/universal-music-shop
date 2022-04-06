@@ -36,7 +36,7 @@ export const productsSlice = createSlice({
         builder.addCase(fetchAllProducts.pending, (state) => {
             state.status = 'pending';
         });
-        builder.addCase(fetchAllProducts.rejected, (state, action) => {
+        builder.addCase(fetchAllProducts.rejected, (_, action) => {
             console.log(action.error.message);
         });
     }
