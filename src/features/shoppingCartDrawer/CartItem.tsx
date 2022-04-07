@@ -2,8 +2,9 @@ import grey from '@mui/material/colors/grey';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { AiOutlineMinusCircle, AiOutlinePlusCircle, AiTwotoneDelete } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus, AiTwotoneDelete } from 'react-icons/ai';
 
+import { Space } from 'components/Space';
 import { ICartItem } from 'interfaces';
 
 type Props = {
@@ -15,9 +16,18 @@ type Props = {
 
 const Row = styled(Stack)(
     ({ theme }) => `
+        display: flex;
         color: ${theme.palette.primary.main}
 `
 );
+
+const Data = styled(Stack)(`
+    flex: 1;
+`);
+
+const Actions = styled(Stack)(`
+    width: 100px;
+`);
 
 export const CartItem = ({
     data,
@@ -29,13 +39,13 @@ export const CartItem = ({
 
     return (
         <Row direction="row" alignItems="center" spacing={4} key={id}>
-            <Stack direction="row" alignItems="center" spacing={2}>
+            <Data direction="row" alignItems="center" spacing={2}>
                 <img src={image} alt={description} width="60px" />
                 <Typography variant="body1">{title}</Typography>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={1}>
-                <AiOutlineMinusCircle
-                    size={20}
+            </Data>
+            <Actions direction="row" alignItems="center" spacing={1}>
+                <AiOutlineMinus
+                    size={17}
                     title="decrement"
                     color={grey[quantity > 0 ? 600 : 400]}
                     onClick={() => decrementQuantity(id, quantity)}
@@ -43,14 +53,15 @@ export const CartItem = ({
                 <Typography variant="h5" color="secondary">
                     {quantity}
                 </Typography>
-                <AiOutlinePlusCircle
-                    size={20}
+                <AiOutlinePlus
+                    size={17}
                     title="increment"
                     color={grey[600]}
                     onClick={() => incrementQuantity(id)}
                 />
-                <AiTwotoneDelete onClick={remove} />
-            </Stack>
+                <Space width="10px" />
+                <AiTwotoneDelete size={22} onClick={remove} />
+            </Actions>
         </Row>
     );
 };
