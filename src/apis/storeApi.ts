@@ -1,4 +1,4 @@
-import Client, { Cart, Product } from 'shopify-buy';
+import Client, { Cart, LineItem, Product } from 'shopify-buy';
 
 import { log } from 'libs/logger';
 import { shopifyDomain, shopifyStorefrontAccessToken } from 'config/constants';
@@ -11,6 +11,12 @@ const client = Client.buildClient({
     domain: shopifyDomain,
     storefrontAccessToken: shopifyStorefrontAccessToken
 });
+
+interface FixLineItem extends LineItem {
+    variant: {
+        id: string;
+    };
+}
 
 const fetchAllProducts = (): Promise<Product[]> => client.product.fetchAll();
 
@@ -36,7 +42,10 @@ const addItemToCart = async (
         }
     ]);
     log.debug('Card with new item', cart);
-    return cart.lineItems[0].id;
+    const lineItem = cart.lineItems.find(
+        (e: LineItem) => (e as FixLineItem).variant.id === variantId
+    );
+    return (lineItem as LineItem).id;
 };
 
 const updateItemQuantityInCart = async (id: string | number, quantity: number): Promise<void> => {
