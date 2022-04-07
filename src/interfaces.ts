@@ -16,6 +16,7 @@ export interface IMarketItem {
     image: string;
     description: string;
     available: boolean;
+    variantId: string | number;
 }
 
 export interface ICartItem extends Omit<IMarketItem, 'available'> {

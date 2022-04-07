@@ -26,7 +26,11 @@ export const Marketplace = (): JSX.Element => {
     }, [dispatch]);
 
     return (
-        <FetchingScreen fetching={status === 'pending'} empty={!items.length}>
+        <FetchingScreen
+            empty={!items.length}
+            error={status === 'failed'}
+            fetching={status === 'pending'}
+            errorMessage="getAllMarketItemsError">
             <Grid sx={{ marginTop: '30px' }} container spacing={4}>
                 {items
                     // Let's not display the white T-shirt as we'll use it as the featured item in the cart for demo

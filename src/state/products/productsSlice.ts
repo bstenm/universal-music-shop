@@ -1,25 +1,26 @@
 /* eslint-disable no-param-reassign */
-import { Product } from 'shopify-buy';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { log } from 'libs/logger';
 import { IMarketItem } from 'interfaces';
-import { shopifyClient } from 'libs/shopifyClient';
 import { IProductsState } from 'state/products//interface';
+import { storeApi, StoreProduct } from 'apis/storeApi';
 
 const initialState = {
     items: [],
     status: 'idle'
 } as IProductsState;
 
-const productToMarketItem = (product: Product): IMarketItem => {
+const productToMarketItem = (product: StoreProduct): IMarketItem => {
     const { title, description, images, id, variants } = product;
     const image: string = images[0].src;
-    const { price, available } = variants[0];
-    return { title, description, id, image, price, available };
+    const { id: variantId, price, available } = variants[0];
+    return { title, description, id, image, price, available, variantId };
 };
 
 export const fetchAllProducts = createAsyncThunk('products/fetchAllProductsStatus', async () => {
-    const products: Product[] = await shopifyClient.product.fetchAll();
+    const products: StoreProduct[] = await storeApi.fetchAllProducts();
+    log.debug(products);
     return products.map(productToMarketItem);
 });
 
@@ -36,8 +37,9 @@ export const productsSlice = createSlice({
         builder.addCase(fetchAllProducts.pending, (state) => {
             state.status = 'pending';
         });
-        builder.addCase(fetchAllProducts.rejected, (_, action) => {
-            console.log(action.error.message);
+        builder.addCase(fetchAllProducts.rejected, (state, action) => {
+            state.status = 'failed';
+            log.error(action.error.message);
         });
     }
 });

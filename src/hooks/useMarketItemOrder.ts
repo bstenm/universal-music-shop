@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-import { cartActions } from 'state/cart/cartSlice';
+import { addItemToCart } from 'state/cart/cartSlice';
 import { IMarketItem } from 'interfaces';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getProductData } from 'state/products/selectors';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { shopifyClient } from 'libs/shopifyClient';
 
 type ReturnType = {
     item: IMarketItem;
@@ -26,9 +25,7 @@ export const useMarketItemOrder = (itemId: string | number): ReturnType => {
     };
 
     const addToCart = async (): Promise<void> => {
-        const checkout = await shopifyClient.checkout.create();
-        console.log('CHECKOUT >>>>>> ', checkout);
-        dispatch(cartActions.addItem({ item, quantity }));
+        dispatch(addItemToCart({ item, quantity }));
     };
 
     const totalPrice = item ? parseInt(item.price, 10) * quantity : 0;

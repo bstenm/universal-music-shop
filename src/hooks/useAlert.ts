@@ -1,6 +1,6 @@
-import { alertActions } from 'state/alert/alertSlice';
-
 import { useTranslation } from 'react-i18next';
+
+import { alertActions } from 'state/alert/alertSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 
 export const useAlert = (): {
