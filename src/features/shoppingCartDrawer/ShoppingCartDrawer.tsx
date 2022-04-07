@@ -84,7 +84,7 @@ export const ShoppingCartDrawer = (): JSX.Element => {
             <Stack spacing={1}>
                 {items.map((item: ICartItem) => (
                     <CartItem
-                        key={item.cartId}
+                        key={item.id}
                         data={item}
                         remove={() => removeItem(item.id)}
                         incrementQuantity={incrementItemQuantity}

@@ -20,6 +20,5 @@ export interface IMarketItem {
 }
 
 export interface ICartItem extends Omit<IMarketItem, 'available'> {
-    cartId: string;
     quantity: number;
 }

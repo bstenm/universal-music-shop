@@ -9,8 +9,8 @@ import { ICartItem } from 'interfaces';
 type Props = {
     data: ICartItem;
     remove: () => void;
-    incrementQuantity: (cartId: string | number) => void;
-    decrementQuantity: (cartId: string | number, quantity: number) => void;
+    incrementQuantity: (itemId: string | number) => void;
+    decrementQuantity: (ItemId: string | number, quantity: number) => void;
 };
 
 const Row = styled(Stack)(
@@ -25,10 +25,10 @@ export const CartItem = ({
     incrementQuantity,
     decrementQuantity
 }: Props): JSX.Element => {
-    const { cartId, title, image, quantity, description } = data;
+    const { id, title, image, quantity, description } = data;
 
     return (
-        <Row direction="row" alignItems="center" spacing={4} key={cartId}>
+        <Row direction="row" alignItems="center" spacing={4} key={id}>
             <Stack direction="row" alignItems="center" spacing={2}>
                 <img src={image} alt={description} width="60px" />
                 <Typography variant="body1">{title}</Typography>
@@ -38,7 +38,7 @@ export const CartItem = ({
                     size={20}
                     title="decrement"
                     color={grey[quantity > 0 ? 600 : 400]}
-                    onClick={() => decrementQuantity(cartId, quantity)}
+                    onClick={() => decrementQuantity(id, quantity)}
                 />
                 <Typography variant="h5" color="secondary">
                     {quantity}
@@ -47,7 +47,7 @@ export const CartItem = ({
                     size={20}
                     title="increment"
                     color={grey[600]}
-                    onClick={() => incrementQuantity(cartId)}
+                    onClick={() => incrementQuantity(id)}
                 />
                 <AiTwotoneDelete onClick={remove} />
             </Stack>
