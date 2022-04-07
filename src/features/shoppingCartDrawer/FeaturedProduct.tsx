@@ -1,13 +1,14 @@
+import { grey } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { Space } from 'components/Space';
 import { Button } from 'components/Button';
 import { currency } from 'config';
 import { CustomSelect } from 'components/CustomSelect';
 import { useMarketItemOrder } from 'hooks/useMarketItemOrder';
-import { grey } from '@mui/material/colors';
 
 type Props = {
     productId: string | number;
@@ -27,6 +28,8 @@ const Title = styled('div')(
 );
 
 export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
+    const { t } = useTranslation();
+
     const { item, totalPrice, addToCart, selectQuantity } = useMarketItemOrder(productId);
 
     // TODO: remove hard-coded
@@ -37,7 +40,7 @@ export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
     return (
         <Stack spacing={1}>
             <Title>
-                <Typography variant="h6">Featured</Typography>
+                <Typography variant="h6">{t('featured')}</Typography>
             </Title>
             <Stack direction="row" spacing={3} alignItems="center">
                 <img src={item.image} width="150px" alt={item.description} />
