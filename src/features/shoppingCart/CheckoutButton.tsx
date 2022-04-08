@@ -15,7 +15,8 @@ export const CheckoutButton = ({ loading, price, onCheckout }: Props): JSX.Eleme
             sx={(theme) => ({ backgroundColor: theme.palette.secondary.dark })}
             variant="contained"
             onClick={onCheckout}
-            endIcon={<ImCreditCard />}>
+            endIcon={<ImCreditCard />}
+            disabled={loading}>
             {loading ? <Spinner dark /> : `$${price}`}
         </Button>
     );

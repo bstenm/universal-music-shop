@@ -47,7 +47,7 @@ export const ShoppingCart = (): JSX.Element => {
         );
     }
 
-    // Any user event calling the store api will disabled all user action in the shopping cartwhile pending
+    // Any user event calling the store api will disabled all action button in the shopping cartwhile pending
     const pending = status === 'pending';
 
     return (
