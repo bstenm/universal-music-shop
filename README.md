@@ -1,3 +1,5 @@
+## Summary
+
 A responsive [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) as a demo for a [Universal Music](https://www.universalmusic.com/) shop with a [Shopify](https://www.shopify.com/) backend.
 
 ## Tech used

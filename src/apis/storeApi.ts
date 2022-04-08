@@ -9,7 +9,7 @@ let cartId: string | number;
 
 const client = Client.buildClient({
     domain: SHOPIFY_DOMAIN,
-    storefrontAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN
+    storefrontAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN as string
 });
 
 interface FixLineItem extends LineItem {
