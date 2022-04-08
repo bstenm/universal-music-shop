@@ -1,13 +1,12 @@
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { ImCreditCard } from 'react-icons/im';
 
 import { CartItem } from 'features/shoppingCart/CartItem';
 import { ICartItem } from 'interfaces';
 import { TypographyIntl } from 'components/TypographyIntl';
 import { Button as ButtonIntl } from 'components/Button';
 import { FeaturedProduct } from 'features/shoppingCart/FeaturedProduct';
+import { CheckoutButton } from 'features/shoppingCart/CheckoutButton';
 import { useShoppingCart } from 'hooks/useShoppingCart';
 
 const Container = styled(Stack)`
@@ -48,6 +47,9 @@ export const ShoppingCart = (): JSX.Element => {
         );
     }
 
+    // Any user event calling the store api will disabled all user action in the shopping cartwhile pending
+    const pending = status === 'pending';
+
     return (
         <Container spacing={8}>
             <Stack spacing={1}>
@@ -57,7 +59,7 @@ export const ShoppingCart = (): JSX.Element => {
                         <CartItem
                             key={cartItemId}
                             data={item}
-                            loading={status === 'pending'}
+                            loading={pending}
                             remove={() => removeItem(cartItemId)}
                             incrementQuantity={() => updateItemQuantity(cartItemId, quantity + 1)}
                             decrementQuantity={() => updateItemQuantity(cartItemId, quantity - 1)}
@@ -65,14 +67,10 @@ export const ShoppingCart = (): JSX.Element => {
                     );
                 })}
             </Stack>
-            {featuredProduct && <FeaturedProduct productId={featuredProduct.id} />}
-            <Button
-                sx={(theme) => ({ backgroundColor: theme.palette.secondary.dark })}
-                variant="contained"
-                onClick={onCheckout}
-                endIcon={<ImCreditCard />}>
-                {`$${totalPrice}`}
-            </Button>
+            {featuredProduct && (
+                <FeaturedProduct loading={pending} productId={featuredProduct.id} />
+            )}
+            <CheckoutButton loading={pending} price={totalPrice} onCheckout={onCheckout} />
         </Container>
     );
 };

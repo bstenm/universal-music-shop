@@ -2,9 +2,12 @@ import { Box, CircularProgress, circularProgressClasses } from '@mui/material';
 
 type Props = {
     size?: number;
+    dark?: boolean;
 };
 
-export const Spinner = ({ size }: Props): JSX.Element => {
+export const Spinner = ({ size, dark }: Props): JSX.Element => {
+    const colorType = dark ? 'primary' : 'secondary';
+
     return (
         <Box
             sx={{
@@ -15,7 +18,7 @@ export const Spinner = ({ size }: Props): JSX.Element => {
             <CircularProgress
                 variant="determinate"
                 sx={{
-                    color: (theme) => theme.palette.secondary.light
+                    color: (theme) => theme.palette[colorType].light
                 }}
                 size={size ?? 17}
                 thickness={6}
@@ -25,7 +28,7 @@ export const Spinner = ({ size }: Props): JSX.Element => {
                 variant="indeterminate"
                 disableShrink
                 sx={{
-                    color: (theme) => theme.palette.secondary.main,
+                    color: (theme) => theme.palette[colorType].main,
                     animationDuration: '550ms',
                     position: 'absolute',
                     left: 0,

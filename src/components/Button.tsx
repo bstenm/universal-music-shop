@@ -13,7 +13,7 @@ export const Button = ({ textId, loading, ...props }: Props): JSX.Element => {
 
     return (
         <MuiButton {...props} disabled={loading}>
-            {loading ? <Spinner /> : t(textId)}
+            {loading ? <Spinner dark /> : t(textId)}
         </MuiButton>
     );
 };

@@ -11,6 +11,7 @@ import { CustomSelect } from 'components/CustomSelect';
 import { useMarketItemOrder } from 'hooks/useMarketItemOrder';
 
 type Props = {
+    loading?: boolean;
     productId: string | number;
 };
 
@@ -30,7 +31,7 @@ const Title = styled('div')(
 /**
  * The product featured in the shopping cart: depends on the last item added to the cart
  */
-export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
+export const FeaturedProduct = ({ loading, productId }: Props): JSX.Element => {
     const { t } = useTranslation();
 
     const { item, totalPrice, addToCart, selectQuantity } = useMarketItemOrder(productId);
@@ -62,6 +63,7 @@ export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
                                 size="small"
                                 textId="add"
                                 variant="contained"
+                                loading={loading}
                                 onClick={addToCart}
                                 disableElevation
                             />

@@ -19,7 +19,7 @@ type Props = {
 const Row = styled(Stack)(
     ({ theme }) => `
         display: flex;
-        color: ${theme.palette.primary.main}
+        color: ${theme.palette.primary.dark}
 `
 );
 
@@ -29,6 +29,10 @@ const Data = styled(Stack)(`
 
 const Actions = styled(Stack)(`
     width: 100px;
+`);
+
+const SpinnerContainer = styled(Stack)(`
+    width: 60px;
 `);
 
 /**
@@ -51,31 +55,31 @@ export const CartItem = ({
                 <img src={image} alt={description} width="60px" />
                 <Typography variant="body1">{title}</Typography>
             </Data>
-            <Actions direction="row" alignItems="center" spacing={1}>
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <>
-                        <AiOutlineMinus
-                            size={17}
-                            title="decrement"
-                            color={grey[quantity > 0 ? 600 : 400]}
-                            onClick={() => decrementQuantity(id, quantity)}
-                        />
-                        <Typography variant="h5" color="secondary">
-                            {quantity}
-                        </Typography>
-                        <AiOutlinePlus
-                            size={17}
-                            title="increment"
-                            color={grey[600]}
-                            onClick={() => incrementQuantity(id)}
-                        />
-                        <Space width="10px" />
-                        <AiTwotoneDelete size={22} onClick={remove} />
-                    </>
-                )}
-            </Actions>
+            {loading ? (
+                <SpinnerContainer>
+                    <Spinner dark />
+                </SpinnerContainer>
+            ) : (
+                <Actions direction="row" alignItems="center" spacing={1}>
+                    <AiOutlineMinus
+                        size={17}
+                        title="decrement"
+                        color={grey[quantity > 0 ? 600 : 400]}
+                        onClick={() => decrementQuantity(id, quantity)}
+                    />
+                    <Typography variant="h5" color="secondary">
+                        {quantity}
+                    </Typography>
+                    <AiOutlinePlus
+                        size={17}
+                        title="increment"
+                        color={grey[600]}
+                        onClick={() => incrementQuantity(id)}
+                    />
+                    <Space width="10px" />
+                    <AiTwotoneDelete size={22} onClick={remove} />
+                </Actions>
+            )}
         </Row>
     );
 };
