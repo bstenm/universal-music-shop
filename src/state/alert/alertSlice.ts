@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { AlertColor } from '@mui/material';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -18,11 +19,12 @@ export const alertSlice = createSlice({
     initialState,
     reducers: {
         close: (): AlertProps => initialState,
-        open: (state, { payload }) => ({
-            ...state,
-            ...payload,
-            open: true
-        })
+        open: (state, { payload }) => {
+            // Uses immer for state immutability under the hood
+            state.open = true;
+            state.type = payload.type;
+            state.message = payload.message;
+        }
     }
 });
 

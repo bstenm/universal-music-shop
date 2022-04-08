@@ -1,3 +1,4 @@
+// In its own file to avoid circular dependency
 import { RootState } from 'app/store';
 import { IUser, ICartItem } from 'interfaces';
 

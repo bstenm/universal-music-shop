@@ -12,6 +12,7 @@ export const userSlice = createSlice({
         reset: () => initialState,
         setData: (_, { payload }) => ({ ...initialState, ...payload }),
         addToPurchases: (state, { payload }) => {
+            // Uses immer for state immutability under the hood
             state.purchases = state.purchases?.concat(payload);
         }
     }

@@ -1,39 +1,50 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { log } from 'libs/logger';
 import { storeApi } from 'apis/storeApi';
 import { ICartItem, IMarketItem } from 'interfaces';
+import { RootState } from '../../app/store';
 
 interface ICartState {
     open: boolean;
     items: ICartItem[];
     status: 'idle' | 'pending' | 'succeeded' | 'failed';
     checkoutId?: string;
+    featuredProduct?: IMarketItem;
 }
 
-const initialState: ICartState = { items: [], open: false, status: 'idle' };
+type UpdateCartItemArgs = {
+    quantity: number;
+    cartItemId: string | number;
+};
 
 type AddItemArgs = {
     item: IMarketItem;
     quantity: number;
 };
 
+const initialState: ICartState = { items: [], open: false, status: 'idle' };
+
 const findByCartItemId = (list: ICartItem[], cartItemId: string | number): number =>
     list.findIndex((item: ICartItem) => item.cartItemId === cartItemId);
 
 export const addItemToCart = createAsyncThunk(
     'cart/addItemToCart',
-    async ({ item, quantity }: AddItemArgs): Promise<ICartItem> => {
+    async ({ item, quantity }: AddItemArgs, thunkApi): Promise<ICartItem> => {
+        // Here we set what the featured product should
+        // be according to the item just added to the cart
+        const globalState: RootState = thunkApi.getState();
+        const products: IMarketItem[] = globalState.products.items;
+        const itemIndex: number = products.findIndex((e: IMarketItem) => e.id === item.id);
+        const featuredProductIndex: number = (itemIndex + 1) % products.length;
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        thunkApi.dispatch(cartSlice.actions.setFeaturedProduct(products[featuredProductIndex]));
+        // Call the store api to add the item to the cart on the backend
         const cartItemId: string | number = await storeApi.addItemToCart(item.variantId, quantity);
         return { ...item, cartItemId, quantity };
     }
 );
-
-type UpdateCartItemArgs = {
-    quantity: number;
-    cartItemId: string | number;
-};
 
 export const updateItemQuantityInCart = createAsyncThunk(
     'cart/updateItemQuantityInCart',
@@ -60,23 +71,27 @@ export const cartSlice = createSlice({
         },
         empty: (state) => {
             state.items = [];
+        },
+        setFeaturedProduct: (state, { payload }) => {
+            state.featuredProduct = payload;
         }
     },
+    // Uses immer for state immutability under the hood
     extraReducers: (builder) => {
-        builder.addCase(addItemToCart.fulfilled, (state, action) => {
+        builder.addCase(addItemToCart.fulfilled, (state, { payload }) => {
             // Add product list to state
-            state.items.push(action.payload);
+            state.items.push(payload);
         });
         builder.addCase(addItemToCart.pending, (state) => {
             state.status = 'pending';
         });
-        builder.addCase(addItemToCart.rejected, (state, action) => {
+        builder.addCase(addItemToCart.rejected, (state, { error }) => {
             state.status = 'failed';
-            log.error(action.error.message);
+            log.error(error.message);
         });
 
-        builder.addCase(updateItemQuantityInCart.fulfilled, (state, action) => {
-            const { cartItemId, quantity } = action.payload;
+        builder.addCase(updateItemQuantityInCart.fulfilled, (state, { payload }) => {
+            const { cartItemId, quantity } = payload;
             const index = findByCartItemId(state.items, cartItemId);
             state.items[index].quantity = quantity;
             if (quantity < 1) {
@@ -86,22 +101,21 @@ export const cartSlice = createSlice({
         builder.addCase(updateItemQuantityInCart.pending, (state) => {
             state.status = 'pending';
         });
-        builder.addCase(updateItemQuantityInCart.rejected, (state, action) => {
+        builder.addCase(updateItemQuantityInCart.rejected, (state, { error }) => {
             state.status = 'failed';
-            log.error(action.error.message);
+            log.error(error.message);
         });
 
-        builder.addCase(removeItemFromCart.fulfilled, (state, action) => {
-            const cartItemId = action.payload;
-            const index = findByCartItemId(state.items, cartItemId);
+        builder.addCase(removeItemFromCart.fulfilled, (state, { payload }) => {
+            const index = findByCartItemId(state.items, payload);
             state.items.splice(index, 1);
         });
         builder.addCase(removeItemFromCart.pending, (state) => {
             state.status = 'pending';
         });
-        builder.addCase(removeItemFromCart.rejected, (state, action) => {
+        builder.addCase(removeItemFromCart.rejected, (state, { error }) => {
             state.status = 'failed';
-            log.error(action.error.message);
+            log.error(error.message);
         });
     }
 });

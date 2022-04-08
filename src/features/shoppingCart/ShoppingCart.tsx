@@ -11,18 +11,18 @@ import {
 } from 'state/cart/cartSlice';
 import { userActions as user } from 'state/user/userSlice';
 import { CartItem } from 'features/shoppingCart/CartItem';
-import { ICartItem, IMarketItem } from 'interfaces';
+import { ICartItem } from 'interfaces';
 import { TypographyIntl } from 'components/TypographyIntl';
 import { Button as ButtonIntl } from 'components/Button';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { getUserId } from 'state/user/selectors';
-import { getProducts } from 'state/products/selectors';
-import { getItemsInCart } from 'state/cart/selectors';
+import { getItemsInCart, getFeaturedProduct } from 'state/cart/selectors';
 import { FeaturedProduct } from 'features/shoppingCart/FeaturedProduct';
 
 const Container = styled(Stack)`
     padding: 30px;
+    width: 450px;
 `;
 
 const ShopNowButton = styled(ButtonIntl)(({ theme }) => ({
@@ -39,6 +39,8 @@ export const ShoppingCart = (): JSX.Element => {
     const userId = useAppSelector(getUserId);
 
     const items = useAppSelector(getItemsInCart);
+
+    const featuredProduct = useAppSelector(getFeaturedProduct);
 
     const dispatch = useAppDispatch();
 
@@ -69,12 +71,6 @@ export const ShoppingCart = (): JSX.Element => {
         return acc;
     }, 0);
 
-    /** Just for the demo  */
-    const marketplace = useAppSelector(getProducts);
-    const featureProduct = marketplace.items.find((item: IMarketItem) =>
-        item.title.includes('white')
-    );
-
     if (!items || !items.length) {
         return (
             <Container spacing={5}>
@@ -100,7 +96,7 @@ export const ShoppingCart = (): JSX.Element => {
                     );
                 })}
             </Stack>
-            {featureProduct && <FeaturedProduct productId={featureProduct.id} />}
+            {featuredProduct && <FeaturedProduct productId={featuredProduct.id} />}
             <Button
                 sx={(theme) => ({ backgroundColor: theme.palette.secondary.dark })}
                 variant="contained"
