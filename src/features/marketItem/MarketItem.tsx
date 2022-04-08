@@ -40,6 +40,9 @@ const RightPanel = styled('div')`
     justify-content: center;
 `;
 
+/**
+ * Displays a product details with ability to select a quantity and add the product to the shopping cart
+ */
 export const MarketItem = ({ itemId }: Props): JSX.Element => {
     const { t } = useTranslation();
 

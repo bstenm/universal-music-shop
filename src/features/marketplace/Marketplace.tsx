@@ -1,15 +1,10 @@
 import { styled } from '@mui/material/styles';
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { CardActions } from '@mui/material';
-
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+
 import { ProductList } from 'components/ProductList';
-import { getProducts } from 'state/products/selectors';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { fetchAllProducts } from 'state/products/productsSlice';
+import { useMarketplace } from 'hooks/useMarketplace';
 import { Button as CustomButton } from 'components/Button';
 import { IMarketItem } from 'interfaces';
 
@@ -17,20 +12,13 @@ const Button = styled(CustomButton)`
     margin: auto;
 `;
 
+/**
+ * The UMG shop: All items are displayed here with ability to redirect to an item detail page
+ */
 export const Marketplace = (): JSX.Element => {
-    const history = useHistory();
-
-    const dispatch = useAppDispatch();
-
-    const { items, status } = useAppSelector(getProducts);
-
-    const onSelect = (itemId: string | number): void => {
-        history.push(`/market-item/${itemId}`);
-    };
-
-    useEffect(() => {
-        dispatch(fetchAllProducts());
-    }, [dispatch]);
+    // Get the status of the request to get all pructs from the store,
+    // the result of the request and the callback for when the user wants to see a product details
+    const { items, status, onSelect } = useMarketplace();
 
     return (
         <ProductList<IMarketItem>

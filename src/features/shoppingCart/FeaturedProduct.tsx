@@ -27,15 +27,13 @@ const Title = styled('div')(
 `
 );
 
+/**
+ * The product featured in the shopping cart: depends on the last item added to the cart
+ */
 export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
     const { t } = useTranslation();
 
     const { item, totalPrice, addToCart, selectQuantity } = useMarketItemOrder(productId);
-
-    // TODO: remove hard-coded
-    const range = 10;
-
-    if (!item || !range || range < 1) return <div />;
 
     return (
         <Stack spacing={1}>
@@ -53,7 +51,7 @@ export const FeaturedProduct = ({ productId }: Props): JSX.Element => {
                     </Typography>
                     <Space height="15px" />
                     <Stack direction="row" alignItems="center" spacing={3}>
-                        <CustomSelect type="quantity" max={range} onSelect={selectQuantity} />
+                        <CustomSelect type="quantity" max={50} onSelect={selectQuantity} />
                         <TotalPrice>
                             {currency}
                             {totalPrice}

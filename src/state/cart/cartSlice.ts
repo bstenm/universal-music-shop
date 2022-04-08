@@ -4,11 +4,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { log } from 'libs/logger';
 import { storeApi } from 'apis/storeApi';
 import { ICartItem, IMarketItem } from 'interfaces';
+import { RequestStatus } from 'types';
 
 interface ICartState {
     open: boolean;
     items: ICartItem[];
-    status: 'idle' | 'pending' | 'succeeded' | 'failed';
+    status: RequestStatus;
     checkoutId?: string;
     featuredProduct?: IMarketItem;
 }
@@ -84,6 +85,7 @@ export const cartSlice = createSlice({
     // Uses immer for state immutability under the hood
     extraReducers: (builder) => {
         builder.addCase(addItemToCart.fulfilled, (state, { payload }) => {
+            state.status = 'succeeded';
             // Add product list to state
             state.items.push(payload);
         });
@@ -96,9 +98,12 @@ export const cartSlice = createSlice({
         });
 
         builder.addCase(updateItemQuantityInCart.fulfilled, (state, { payload }) => {
+            state.status = 'succeeded';
+            // Update quantity in state
             const { cartItemId, quantity } = payload;
             const index = findByCartItemId(state.items, cartItemId);
             state.items[index].quantity = quantity;
+            // If the quantity reaches 0 then we remove the item from the shopping cart
             if (quantity < 1) {
                 state.items.splice(index, 1);
             }
@@ -112,6 +117,8 @@ export const cartSlice = createSlice({
         });
 
         builder.addCase(removeItemFromCart.fulfilled, (state, { payload }) => {
+            // Remove item in state
+            state.status = 'succeeded';
             const index = findByCartItemId(state.items, payload);
             state.items.splice(index, 1);
         });

@@ -16,21 +16,26 @@ type ReturnType = {
 export const useMarketItemOrder = (itemId: string | number): ReturnType => {
     const dispatch = useAppDispatch();
 
-    // Update the item quantity according to what the user selected
+    // Track the item quantity according to what the user selected
     const [quantity, setQuantity] = useState<number>(1);
 
     const item: IMarketItem = useAppSelector((state) => getProductData(state, itemId));
 
-    // Set item quantity the user selected
+    /**
+     *  User event: Set item quantity
+     */
     const selectQuantity = (value: number): void => {
         setQuantity(value);
     };
 
+    /**
+     *  User event: Add new item to the shopping cart
+     */
     const addToCart = async (): Promise<void> => {
         dispatch(addItemToCart({ item, quantity }));
     };
 
-    // The total pricefor this order
+    // The total pricefor this specific order
     const totalPrice = item ? parseInt(item.price, 10) * quantity : 0;
 
     return { item, totalPrice, addToCart, selectQuantity };
