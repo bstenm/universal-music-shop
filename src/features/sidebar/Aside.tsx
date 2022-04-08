@@ -77,8 +77,8 @@ export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.E
                                 <Capitalize all variant="body2" message="myPurchases" />
                             </Link>
                         </Item>
-                        <Item icon={<IoMdContacts fontSize={22} />}>
-                            <Capitalize onClick={toUMGSite} all variant="body2" message="contact" />
+                        <Item onClick={toUMGSite} icon={<IoMdContacts fontSize={22} />}>
+                            <Capitalize all variant="body2" message="contact" />
                         </Item>
                     </Menu>
                 </SidebarContent>
