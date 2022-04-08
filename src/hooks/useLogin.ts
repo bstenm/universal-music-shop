@@ -26,6 +26,7 @@ export const useLogin = (): ReturnType => {
             }, 2000);
         } catch (e) {
             setLoading(false);
+            // Open the error alerrt on auth error
             errorAlert('loginError');
             log.error(e);
         }

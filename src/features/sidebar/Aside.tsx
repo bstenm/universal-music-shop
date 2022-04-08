@@ -12,7 +12,6 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { SidebarTitle } from 'features/sidebar/SidebarTitle';
 import { getUserData } from 'state/user/selectors';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { SidebarUserOverview } from 'features/sidebar/SidebarUserOverview';
 import { Capitalize } from 'components/Capitalize';
 
 const Item = styled(MenuItem)(
@@ -33,6 +32,7 @@ type Props = {
 export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.Element => {
     const userData = useAppSelector(getUserData);
 
+    // Redirects to the external UMG site
     const toUMGSite = (): void => {
         window.location.href = 'https://umg.kord.space';
     };
@@ -46,11 +46,6 @@ export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.E
             <SidebarHeader onClick={toUMGSite}>
                 <SidebarTitle collapsed={collapsed} />
             </SidebarHeader>
-            {userData.name && (
-                <SidebarHeader>
-                    <SidebarUserOverview name={userData.name} avatar={userData.avatar} />
-                </SidebarHeader>
-            )}
             <PerfectScrollbar>
                 <SidebarContent>
                     <Menu iconShape="circle">
