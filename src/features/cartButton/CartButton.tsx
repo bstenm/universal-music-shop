@@ -7,11 +7,15 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import { getNbOfItemInCart } from 'state/cart/selectors';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 
+/**
+ * The icon button to open the shopping cart drawer
+ */
 export const CartButton = (): JSX.Element => {
     const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
 
+    // So we can display a bdge with the number of items in the shopping cart
     const nbOfItems = useAppSelector(getNbOfItemInCart);
 
     const onClick = (): void => {

@@ -14,6 +14,9 @@ const Value = styled('div')(
 `
 );
 
+/**
+ * The total price for this specific item
+ */
 export const TotalPrice = ({ data }: Props): JSX.Element => (
     <DataRow>
         <Capitalize message="totalPrice" />:{' '}

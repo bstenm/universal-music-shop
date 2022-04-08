@@ -15,6 +15,9 @@ type Props = {
     onSelect: (value: number) => void;
 };
 
+/**
+ * Gives the ability to the user to select a quantity for this item
+ */
 export const ItemQuantity = ({ range, onSelect }: Props): JSX.Element => {
     const { t } = useTranslation();
 

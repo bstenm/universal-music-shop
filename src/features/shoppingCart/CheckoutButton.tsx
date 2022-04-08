@@ -9,6 +9,10 @@ type Props = {
     onCheckout: () => void;
 };
 
+/**
+ * The shopping cart checkout button: for saving the items purchased
+ * to the user state and redirecting to the user purchases page
+ */
 export const CheckoutButton = ({ loading, price, onCheckout }: Props): JSX.Element => {
     return (
         <Button
