@@ -6,6 +6,6 @@ export const TEST_MODE = process.env.NODE_ENV === 'test';
 
 export const SHOW_RENDERED = true;
 
-export const shopifyDomain = 'programming-9190.myshopify.com';
+export const SHOPIFY_DOMAIN = 'programming-9190.myshopify.com';
 
-export const shopifyStorefrontAccessToken = '8090124e9b9b8f3c14952e237a49de38';
+export const SHOPIFY_STOREFRONT_ACCESS_TOKEN = '8090124e9b9b8f3c14952e237a49de38';

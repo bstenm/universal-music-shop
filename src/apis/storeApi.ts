@@ -1,15 +1,15 @@
 import Client, { Cart, LineItem, Product } from 'shopify-buy';
 
 import { log } from 'libs/logger';
-import { shopifyDomain, shopifyStorefrontAccessToken } from 'config/constants';
+import { SHOPIFY_DOMAIN, SHOPIFY_STOREFRONT_ACCESS_TOKEN } from 'config/constants';
 
 export type StoreProduct = Product;
 
 let cartId: string | number;
 
 const client = Client.buildClient({
-    domain: shopifyDomain,
-    storefrontAccessToken: shopifyStorefrontAccessToken
+    domain: SHOPIFY_DOMAIN,
+    storefrontAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN
 });
 
 interface FixLineItem extends LineItem {
