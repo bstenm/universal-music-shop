@@ -12,6 +12,10 @@ type Props<T> = {
     errorMessage?: string;
 };
 
+/**
+ * Component that gives the ability to display a list of product of different type (market type/cart type).
+ * Will display a loader on request pending, a error message on request error and a empty message if no items were found
+ */
 export const ProductList = <T extends ProductListItem>({
     items,
     error,

@@ -13,6 +13,9 @@ const Container = styled('div')<{ fullscreen?: string }>`
     justify-content: center;
 `;
 
+/**
+ * Component that gives the ability to center its children in the page
+ */
 export const Centered = ({ children, fullscreen }: Props): JSX.Element => {
     return <Container fullscreen={fullscreen ? 'true' : 'false'}>{children}</Container>;
 };

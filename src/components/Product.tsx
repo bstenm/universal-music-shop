@@ -28,6 +28,9 @@ type Props = {
     children: React.ReactNode;
 };
 
+/**
+ * The design used for an item across the various product list (shop/purchases/...)
+ */
 export const Product = ({ image, children }: Props): JSX.Element => {
     const [brokenImage, setBrokenImage] = useState<boolean>(false);
 

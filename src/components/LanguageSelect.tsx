@@ -102,6 +102,9 @@ const CustomSelect = (
 
 CustomSelect.muiName = 'Select';
 
+/**
+ * The drop down that gives the ability to set the language used across the app
+ */
 export const LanguageSelect = (): JSX.Element => {
     const [lang, setLang] = useContext<LangContextType>(LangContext);
 

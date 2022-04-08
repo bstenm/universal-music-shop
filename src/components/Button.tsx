@@ -7,7 +7,9 @@ type Props = React.ComponentProps<typeof MuiButton> & {
     textId: string;
     loading?: boolean;
 };
-
+/**
+ * The mui button component with automatic internationalization and loading logic
+ */
 export const Button = ({ textId, loading, ...props }: Props): JSX.Element => {
     const { t } = useTranslation();
 

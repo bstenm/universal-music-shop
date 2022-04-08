@@ -16,6 +16,9 @@ type Props = {
     fullscreen?: boolean;
 };
 
+/**
+ * Standard design for error messge that can be centered
+ */
 export const ErrorOccured = ({ message, fullscreen }: Props): JSX.Element => {
     const theme = useTheme();
 

@@ -8,6 +8,9 @@ type Props = React.ComponentProps<typeof Typography> & {
     all?: boolean;
 };
 
+/**
+ * Capitalize the message passed with automatic translation
+ */
 export const Capitalize = ({ message, all, ...props }: Props): JSX.Element => {
     const { t } = useTranslation();
 

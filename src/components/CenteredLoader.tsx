@@ -5,6 +5,9 @@ type Props = {
     fullscreen?: boolean;
 };
 
+/**
+ * The bouncing loader that can be centered
+ */
 export const CenteredLoader = ({ fullscreen }: Props): JSX.Element => {
     return (
         <Centered fullscreen={fullscreen}>

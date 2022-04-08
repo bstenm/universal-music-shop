@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 
-import { Main } from 'components/Main';
+import { Main } from 'Main';
 import { Aside } from 'features/sidebar/Aside';
 import { cartIsOpen } from 'state/cart/selectors';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -15,6 +15,9 @@ const Container = styled('div')`
     display: flex;
 `;
 
+/**
+ * The top-level component for any page
+ */
 export const Layout = (): JSX.Element => {
     const dispatch = useAppDispatch();
 

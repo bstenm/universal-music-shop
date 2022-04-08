@@ -21,6 +21,9 @@ type Props = {
     toggle: (value: boolean) => void;
 };
 
+/**
+ * The icon button to toggle the sidebar menu
+ */
 export const ToggleSidebarButton = ({ toggle }: Props): JSX.Element => (
     <Container onClick={() => toggle(true)}>
         <MenuIcon color="secondary" />

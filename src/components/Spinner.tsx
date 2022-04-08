@@ -5,6 +5,9 @@ type Props = {
     dark?: boolean;
 };
 
+/**
+ * The classical circuklar loader with ability to set size and color
+ */
 export const Spinner = ({ size, dark }: Props): JSX.Element => {
     const colorType = dark ? 'primary' : 'secondary';
 

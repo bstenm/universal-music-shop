@@ -6,7 +6,7 @@ import {
     responsiveFontSizes
 } from '@mui/material/styles';
 
-import { Layout } from 'components/Layout';
+import { Layout } from 'Layout';
 import { useAlert } from 'hooks/useAlert';
 import { RootState } from 'app/store';
 import { AlertProps } from 'state/alert/alertSlice';

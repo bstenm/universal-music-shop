@@ -16,6 +16,9 @@ type Props = {
     fullscreen?: boolean;
 };
 
+/**
+ * Standard design for an empty response that can be centered
+ */
 export const EmptyResponse = ({ message, fullscreen }: Props): JSX.Element => {
     const theme = useTheme();
 

@@ -12,6 +12,9 @@ const Container = styled('div')`
     background-color: #555;
 `;
 
+/**
+ * Displayed while a Suspence component is in pending mode
+ */
 export const Fallback = (): JSX.Element => (
     <Container>
         <img src={logo} alt={siteTitle} width="220px" />

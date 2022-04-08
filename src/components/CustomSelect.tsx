@@ -10,6 +10,9 @@ type Props = {
     onSelect: (value: number) => void;
 };
 
+/**
+ * Standard select logic to use across the app
+ */
 export const CustomSelect = ({ type, max, onSelect }: Props): JSX.Element => {
     const [val, setVal] = useState<number>(1);
 

@@ -6,6 +6,9 @@ type Props = {
     message: string;
 };
 
+/**
+ * Standard design for placeholder for missing data (missing price/missing user data/...)
+ */
 export const MissingData = ({ message }: Props): JSX.Element => {
     const { t } = useTranslation();
 

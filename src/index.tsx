@@ -10,7 +10,7 @@ import { BrowserTracing } from '@sentry/tracing';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
 import { ConnectedRouter } from 'connected-react-router';
 
-import { App } from 'components/App';
+import { App } from 'App';
 import { Fallback } from 'components/Fallback';
 import { store, history } from 'app/store';
 import * as serviceWorkerRegistration from 'serviceWorkerRegistration';

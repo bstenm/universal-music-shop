@@ -11,6 +11,10 @@ type Props = {
     emptyMessage?: string;
 };
 
+/**
+ * A component that will display a loader on action pending, an error message
+ * on action error, an empty message when there is nothing to display or its children
+ */
 export const FetchingScreen = ({
     error,
     empty,

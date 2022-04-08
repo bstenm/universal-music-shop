@@ -8,6 +8,9 @@ type Props = {
     component: React.ElementType;
 };
 
+/**
+ * Component that insures an authenticated can not access a specific route
+ */
 export const ProtectedRoute = ({ component: Component, path }: Props): JSX.Element => {
     const loggedIn = useAppSelector(isUserLoggedIn);
 

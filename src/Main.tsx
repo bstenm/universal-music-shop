@@ -50,6 +50,9 @@ type Props = {
     handleCollapsedChange: (value: boolean) => void;
 };
 
+/**
+ * The parent component that encompasses the body of any page on the site along side the sidebar
+ */
 export const Main = ({
     collapsed,
     handleToggleSidebar,

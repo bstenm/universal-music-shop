@@ -19,6 +19,9 @@ type Props = {
     onToggle: (value: boolean) => void;
 };
 
+/**
+ * The icon button that gives the ability to collapse the sidebar menu
+ */
 export const CollapseSidebarButton = ({ collapsed, onToggle }: Props): JSX.Element => {
     const onChange = (_: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
         onToggle(checked);
