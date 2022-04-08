@@ -9,15 +9,17 @@ import {
     removeItemFromCart,
     updateItemQuantityInCart
 } from 'state/cart/cartSlice';
-import { CartItem } from 'features/shoppingCartDrawer/CartItem';
+import { userActions as user } from 'state/user/userSlice';
+import { CartItem } from 'features/shoppingCart/CartItem';
 import { ICartItem, IMarketItem } from 'interfaces';
 import { TypographyIntl } from 'components/TypographyIntl';
 import { Button as ButtonIntl } from 'components/Button';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { getUserId } from 'state/user/selectors';
 import { getProducts } from 'state/products/selectors';
 import { getItemsInCart } from 'state/cart/selectors';
-import { FeaturedProduct } from 'features/shoppingCartDrawer/FeaturedProduct';
+import { FeaturedProduct } from 'features/shoppingCart/FeaturedProduct';
 
 const Container = styled(Stack)`
     padding: 30px;
@@ -31,8 +33,10 @@ const ShopNowButton = styled(ButtonIntl)(({ theme }) => ({
     }
 }));
 
-export const ShoppingCartDrawer = (): JSX.Element => {
+export const ShoppingCart = (): JSX.Element => {
     const history = useHistory();
+
+    const userId = useAppSelector(getUserId);
 
     const items = useAppSelector(getItemsInCart);
 
@@ -48,9 +52,10 @@ export const ShoppingCartDrawer = (): JSX.Element => {
     };
 
     const onCheckout = (): void => {
+        dispatch(user.addToPurchases(items));
         dispatch(cart.empty());
         dispatch(cart.toggle());
-        history.push('/marketplace');
+        history.push(`/my-purchases/${userId}`);
     };
 
     const onShopNow = (): void => {
@@ -80,7 +85,7 @@ export const ShoppingCartDrawer = (): JSX.Element => {
     }
 
     return (
-        <Container spacing={5}>
+        <Container spacing={8}>
             <Stack spacing={1}>
                 {items.map((item: ICartItem) => {
                     const { cartItemId, quantity } = item;
@@ -101,7 +106,7 @@ export const ShoppingCartDrawer = (): JSX.Element => {
                 variant="contained"
                 onClick={onCheckout}
                 endIcon={<ImCreditCard />}>
-                {`$${totalPrice}`}&nbsp;
+                {`$${totalPrice}`}
             </Button>
         </Container>
     );

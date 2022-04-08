@@ -1,12 +1,12 @@
 export interface IUser {
     id: string;
-    email: string;
+    email?: string;
     name?: string;
     avatar?: string;
     lastName?: string;
     createdAt?: number;
     firstName?: string;
-    assets?: ICartItem[];
+    purchases?: ICartItem[];
 }
 
 export interface IMarketItem {
@@ -22,4 +22,9 @@ export interface IMarketItem {
 export interface ICartItem extends Omit<IMarketItem, 'available'> {
     quantity: number;
     cartItemId: string | number;
+}
+
+export interface ProductListItem {
+    id: string | number;
+    image: string;
 }

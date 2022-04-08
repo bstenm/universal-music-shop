@@ -7,7 +7,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import { AuthPage } from 'pages/AuthPage';
 import { CartButton } from 'features/cartButton/CartButton';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { UserAssetsPage } from 'pages/UserAssetsPage';
+import { UserPurchasesPage } from 'pages/UserPurchasesPage';
 import { LanguageSelect } from 'components/LanguageSelect';
 import { ProtectedRoute } from 'components/ProtectedRoute';
 import { MarketItemPage } from 'pages/MarketItemPage';
@@ -71,10 +71,7 @@ export const Main = ({
                     <Route path="/not-found" component={NotFoundPage} />
                     <Route path="/something-went-wrong" component={SomethingWentWrongPage} />
                     <ProtectedRoute path="/marketplace" component={MarketplacePage} />
-                    <ProtectedRoute
-                        path="/my-purchases/:userId/:initialTab?"
-                        component={UserAssetsPage}
-                    />
+                    <ProtectedRoute path="/my-purchases/:userId" component={UserPurchasesPage} />
                     <ProtectedRoute path="/market-item/:itemId" component={MarketItemPage} />
                     <Redirect exact from="/" to="auth" />
                     <Redirect from="/" to="/not-found" />

@@ -1,14 +1,19 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {};
+import { IUser } from 'interfaces';
+
+const initialState: IUser = { id: '', purchases: [] };
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         reset: () => initialState,
-        setInfo: (_, { payload }) => ({ ...initialState, ...payload }),
-        updateInfo: (state, { payload }) => ({ ...state, ...payload })
+        setData: (_, { payload }) => ({ ...initialState, ...payload }),
+        addToPurchases: (state, { payload }) => {
+            state.purchases = state.purchases?.concat(payload);
+        }
     }
 });
 

@@ -1,14 +1,8 @@
 import { useState } from 'react';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { CardActions } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import MuiCard from '@mui/material/Card';
 import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
-
-import { IMarketItem } from 'interfaces';
-import { Button as CustomButton } from 'components/Button';
 
 const Card = styled(MuiCard)(
     ({ theme }) => `
@@ -18,10 +12,6 @@ const Card = styled(MuiCard)(
     background-color: ${theme.palette.primary.light};
 `
 );
-
-const Button = styled(CustomButton)`
-    margin: auto;
-`;
 
 const BrokenImagePlaceholder = styled('div')({
     width: '100%',
@@ -34,11 +24,11 @@ const BrokenImagePlaceholder = styled('div')({
 });
 
 type Props = {
-    data: IMarketItem;
-    onSelect: () => void;
+    image: string;
+    children: React.ReactNode;
 };
 
-export const Asset = ({ data, onSelect }: Props): JSX.Element => {
+export const Product = ({ image, children }: Props): JSX.Element => {
     const [brokenImage, setBrokenImage] = useState<boolean>(false);
 
     return (
@@ -52,19 +42,12 @@ export const Asset = ({ data, onSelect }: Props): JSX.Element => {
                     sx={{ objectPosition: 'center top' }}
                     alt="T-shirt"
                     height="220"
-                    image={data.image}
+                    image={image}
                     component="img"
                     onError={() => setBrokenImage(true)}
                 />
             )}
-            <CardContent>
-                <Typography gutterBottom variant="body1" align="center">
-                    {data.title}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button variant="outlined" onClick={onSelect} textId="viewDetails" />
-            </CardActions>
+            {children}
         </Card>
     );
 };

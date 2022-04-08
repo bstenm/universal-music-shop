@@ -1,14 +1,21 @@
-import { Grid } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { CardActions } from '@mui/material';
 
-import { Asset } from 'components/Asset';
-import { IMarketItem } from 'interfaces';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { ProductList } from 'components/ProductList';
 import { getProducts } from 'state/products/selectors';
-import { FetchingScreen } from 'components/FetchingScreen';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { fetchAllProducts } from 'state/products/productsSlice';
+import { Button as CustomButton } from 'components/Button';
+import { IMarketItem } from 'interfaces';
+
+const Button = styled(CustomButton)`
+    margin: auto;
+`;
 
 export const Marketplace = (): JSX.Element => {
     const history = useHistory();
@@ -26,21 +33,27 @@ export const Marketplace = (): JSX.Element => {
     }, [dispatch]);
 
     return (
-        <FetchingScreen
-            empty={!items.length}
+        <ProductList<IMarketItem>
+            items={items}
             error={status === 'failed'}
             fetching={status === 'pending'}
             errorMessage="getAllMarketItemsError">
-            <Grid sx={{ marginTop: '30px' }} container spacing={4}>
-                {items
-                    // Let's not display the white T-shirt as we'll use it as the featured item in the cart for demo
-                    .filter((item: IMarketItem) => !item.title.includes('white'))
-                    .map((item: IMarketItem) => (
-                        <Grid key={item.id} item xs={6} md={4} xl={3}>
-                            <Asset data={item} onSelect={() => onSelect(item.id)} />
-                        </Grid>
-                    ))}
-            </Grid>
-        </FetchingScreen>
+            {(item: IMarketItem) => (
+                <>
+                    <CardContent>
+                        <Typography gutterBottom variant="body1" align="center">
+                            {item.title}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button
+                            variant="outlined"
+                            onClick={() => onSelect(item.id)}
+                            textId="viewDetails"
+                        />
+                    </CardActions>
+                </>
+            )}
+        </ProductList>
     );
 };

@@ -8,7 +8,7 @@ import { cartIsOpen } from 'state/cart/selectors';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { cartActions as cart } from 'state/cart/cartSlice';
-import { ShoppingCartDrawer } from 'features/shoppingCartDrawer/ShoppingCartDrawer';
+import { ShoppingCart } from 'features/shoppingCart/ShoppingCart';
 
 const Container = styled('div')`
     height: 100%;
@@ -49,7 +49,7 @@ export const Layout = (): JSX.Element => {
                 handleCollapsedChange={handleCollapsedChange}
             />
             <Drawer anchor="right" open={shoppingCartIsOpen} onClose={() => toggleShoppingCart()}>
-                <ShoppingCartDrawer />
+                <ShoppingCart />
             </Drawer>
         </Container>
     );

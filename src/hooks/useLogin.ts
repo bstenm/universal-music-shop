@@ -1,4 +1,4 @@
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
 
 import { log } from 'libs/logger';
@@ -15,15 +15,15 @@ export const useLogin = (): ReturnType => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
+    // Dummy login for demo
     const login = async (): Promise<void> => {
         try {
             setLoading(true);
             setTimeout(() => {
                 setLoading(false);
-                dispatch(userActions.setInfo({ id: '123' }));
-                // dispatch(userActions.setInfo({ id: nanoid() }));
+                // Set global state user data
+                dispatch(userActions.setData({ id: nanoid() }));
             }, 2000);
-            // Set global state user data
         } catch (e) {
             setLoading(false);
             errorAlert('loginError');
