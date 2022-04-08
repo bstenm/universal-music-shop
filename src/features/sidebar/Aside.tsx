@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { FaTshirt } from 'react-icons/fa';
+import { ImHome } from 'react-icons/im';
 import { IoMdContacts } from 'react-icons/io';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import {
-    ProSidebar,
-    Menu,
-    SubMenu,
-    MenuItem,
-    SidebarHeader,
-    SidebarContent
-} from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-pro-sidebar/dist/css/styles.css';
 
@@ -60,18 +54,14 @@ export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.E
             <PerfectScrollbar>
                 <SidebarContent>
                     <Menu iconShape="circle">
+                        <Item onClick={toUMGSite} icon={<ImHome fontSize={22} />}>
+                            <Capitalize all variant="body2" message="home" />
+                        </Item>
                         <Item icon={<LocalGroceryStoreIcon />}>
                             <Link to="/marketplace">
                                 <Capitalize all variant="body2" message="marketplace" />
                             </Link>
                         </Item>
-                        {/* <SubMenu title="shop" icon={<LocalGroceryStoreIcon />}>
-                            <Item icon={<FaTshirt fontSize={22} />}>
-                                <Link to={`/my-purchases/${userData.id}`}>
-                                    <Capitalize all variant="body2" message="myPurchases" />
-                                </Link>
-                            </Item>
-                        </SubMenu> */}
                         <Item icon={<FaTshirt fontSize={22} />}>
                             <Link to={`/my-purchases/${userData.id}`}>
                                 <Capitalize all variant="body2" message="myPurchases" />
