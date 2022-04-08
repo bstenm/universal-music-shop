@@ -1,10 +1,9 @@
-/* eslint-disable no-param-reassign, import/no-cycle */
+/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { log } from 'libs/logger';
 import { storeApi } from 'apis/storeApi';
 import { ICartItem, IMarketItem } from 'interfaces';
-import { RootState } from '../../app/store';
 
 interface ICartState {
     open: boolean;
@@ -24,6 +23,12 @@ type AddItemArgs = {
     quantity: number;
 };
 
+type GlobalState = {
+    products: {
+        items: IMarketItem[];
+    };
+};
+
 const initialState: ICartState = { items: [], open: false, status: 'idle' };
 
 const findByCartItemId = (list: ICartItem[], cartItemId: string | number): number =>
@@ -34,7 +39,7 @@ export const addItemToCart = createAsyncThunk(
     async ({ item, quantity }: AddItemArgs, thunkApi): Promise<ICartItem> => {
         // Here we set what the featured product should
         // be according to the item just added to the cart
-        const globalState: RootState = thunkApi.getState();
+        const globalState: GlobalState = thunkApi.getState() as GlobalState;
         const products: IMarketItem[] = globalState.products.items;
         const itemIndex: number = products.findIndex((e: IMarketItem) => e.id === item.id);
         const featuredProductIndex: number = (itemIndex + 1) % products.length;
