@@ -40,7 +40,7 @@ export const ShoppingCart = (): JSX.Element => {
 
     if (!items || !items.length) {
         return (
-            <Container spacing={5}>
+            <Container alignItems="center" spacing={5}>
                 <TypographyIntl variant="h5" color="primary" textId="cartEmpty" />
                 <ShopNowButton textId="shopNow" onClick={onShopNow} />
             </Container>
