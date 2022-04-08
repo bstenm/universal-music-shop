@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { FaTshirt } from 'react-icons/fa';
+import { IoMdContacts } from 'react-icons/io';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
+import {
+    ProSidebar,
+    Menu,
+    SubMenu,
+    MenuItem,
+    SidebarHeader,
+    SidebarContent
+} from 'react-pro-sidebar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-pro-sidebar/dist/css/styles.css';
 
@@ -31,13 +39,17 @@ type Props = {
 export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.Element => {
     const userData = useAppSelector(getUserData);
 
+    const toUMGSite = (): void => {
+        window.location.href = 'https://umg.kord.space';
+    };
+
     return (
         <ProSidebar
             toggled={toggled}
             collapsed={collapsed}
             breakPoint="md"
             onToggle={handleToggleSidebar}>
-            <SidebarHeader>
+            <SidebarHeader onClick={toUMGSite}>
                 <SidebarTitle collapsed={collapsed} />
             </SidebarHeader>
             {userData.name && (
@@ -53,10 +65,20 @@ export const Aside = ({ toggled, collapsed, handleToggleSidebar }: Props): JSX.E
                                 <Capitalize all variant="body2" message="marketplace" />
                             </Link>
                         </Item>
+                        {/* <SubMenu title="shop" icon={<LocalGroceryStoreIcon />}>
+                            <Item icon={<FaTshirt fontSize={22} />}>
+                                <Link to={`/my-purchases/${userData.id}`}>
+                                    <Capitalize all variant="body2" message="myPurchases" />
+                                </Link>
+                            </Item>
+                        </SubMenu> */}
                         <Item icon={<FaTshirt fontSize={22} />}>
                             <Link to={`/my-purchases/${userData.id}`}>
                                 <Capitalize all variant="body2" message="myPurchases" />
                             </Link>
+                        </Item>
+                        <Item icon={<IoMdContacts fontSize={22} />}>
+                            <Capitalize onClick={toUMGSite} all variant="body2" message="contact" />
                         </Item>
                     </Menu>
                 </SidebarContent>
