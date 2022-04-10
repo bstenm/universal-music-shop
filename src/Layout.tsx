@@ -25,7 +25,7 @@ export const Layout = (): JSX.Element => {
 
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
-    const shoppingCartIsOpen = useAppSelector(cartIsOpen);
+    const shoppingCartIsOpen = useAppSelector<boolean>(cartIsOpen);
 
     const handleCollapsedChange = (checked: boolean): void => {
         setCollapsed(checked);

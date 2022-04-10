@@ -5,15 +5,15 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import { AuthPage } from 'pages/AuthPage';
-import { CartButton } from 'features/cartButton/CartButton';
+import { CartButton } from 'features/topBar/CartButton';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { UserPurchasesPage } from 'pages/UserPurchasesPage';
-import { LanguageSelect } from 'components/LanguageSelect';
-import { ProtectedRoute } from 'components/ProtectedRoute';
+import { LanguageSelect } from 'features/languageSelect/LanguageSelect';
+import { ProtectedRoute } from 'ProtectedRoute';
 import { MarketItemPage } from 'pages/MarketItemPage';
 import { MarketplacePage } from 'pages/MarketplacePage';
-import { ToggleSidebarButton } from 'components/ToggleSidebarButton';
-import { CollapseSidebarButton } from 'components/CollapseSidebarButton';
+import { ToggleSidebarButton } from 'features/topBar/ToggleSidebarButton';
+import { CollapseSidebarButton } from 'features/topBar/CollapseSidebarButton';
 import { SomethingWentWrongPage } from 'pages/SomethingWentWrongPage';
 
 const Container = styled('main')(

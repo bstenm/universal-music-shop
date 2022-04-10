@@ -48,7 +48,7 @@ export const ShoppingCart = (): JSX.Element => {
     }
 
     // Any user event calling the store api will disabled all action button in the shopping cartwhile pending
-    const pending = status === 'pending';
+    const pending: boolean = status === 'pending';
 
     return (
         <Container spacing={8}>

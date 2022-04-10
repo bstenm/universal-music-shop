@@ -36,7 +36,7 @@ export const useMarketItemOrder = (itemId: string | number): ReturnType => {
     };
 
     // The total pricefor this specific order
-    const totalPrice = item ? parseInt(item.price, 10) * quantity : 0;
+    const totalPrice: number = item ? parseInt(item.price, 10) * quantity : 0;
 
     return { item, totalPrice, addToCart, selectQuantity };
 };

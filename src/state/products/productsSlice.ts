@@ -25,11 +25,14 @@ const productToMarketItem = (product: StoreProduct): IMarketItem => {
 /**
  * Fetches all the products that we want to displayed from  the store
  */
-export const fetchAllProducts = createAsyncThunk('products/fetchAllProductsStatus', async () => {
-    const products: StoreProduct[] = await storeApi.fetchAllProducts();
-    log.debug(products);
-    return products.map(productToMarketItem);
-});
+export const fetchAllProducts = createAsyncThunk(
+    'products/fetchAllProductsStatus',
+    async (): Promise<IMarketItem[]> => {
+        const products: StoreProduct[] = await storeApi.fetchAllProducts();
+        log.debug(products);
+        return products.map(productToMarketItem);
+    }
+);
 
 export const productsSlice = createSlice({
     name: 'products',

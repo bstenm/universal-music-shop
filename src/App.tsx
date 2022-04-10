@@ -23,7 +23,7 @@ type Props = {
 export const App = ({ theme }: Props): JSX.Element => {
     const { i18n } = useTranslation();
 
-    const lang = i18n.language ?? defaultLang;
+    const lang: string = i18n.language ?? defaultLang;
 
     const { closeAlert } = useAlert();
 

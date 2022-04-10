@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { alertActions } from 'state/alert/alertSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 
-// Allows to open a snacknar alert from anywhere in the app
-// This alert is embedded is the layout
-export const useAlert = (): {
+type AlertType = {
     errorAlert: (messageId?: string | undefined) => void;
     successAlert: (messageId?: string | undefined) => void;
     closeAlert: () => void;
-} => {
+};
+
+// Allows to open a snacknar alert from anywhere in the app
+// This alert is embedded is the layout
+export const useAlert = (): AlertType => {
     const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
